@@ -5,9 +5,6 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.local.yml"
-BACKUP_DIR="${SCRIPT_DIR}/backups"
-TIMESTAMP="$(date +%F-%H%M%S)"
-BACKUP_FILE="${BACKUP_DIR}/sub2api-backup-${TIMESTAMP}.tar.gz"
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "[ERROR] docker is not installed"
@@ -26,21 +23,6 @@ fi
 
 echo "[INFO] Repository root: ${REPO_ROOT}"
 echo "[INFO] Deploy dir: ${SCRIPT_DIR}"
-
-if [ "${SKIP_BACKUP:-0}" != "1" ]; then
-  mkdir -p "${BACKUP_DIR}"
-  echo "[INFO] Creating backup: ${BACKUP_FILE}"
-  tar czf "${BACKUP_FILE}" \
-    --ignore-failed-read \
-    -C "${SCRIPT_DIR}" \
-    .env \
-    data \
-    postgres_data \
-    redis_data
-  echo "[INFO] Backup completed"
-else
-  echo "[INFO] Backup skipped because SKIP_BACKUP=1"
-fi
 
 cd "${REPO_ROOT}"
 

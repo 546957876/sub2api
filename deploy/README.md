@@ -190,17 +190,10 @@ chmod +x deploy/update-fork.sh
 ```
 
 This script will:
-- create a timestamped backup in `deploy/backups/` (includes `.env`, `data`, `postgres_data`, `redis_data`)
 - `git pull origin <current-branch>`
 - rebuild the local Docker image from your forked source
 - restart the stack with `docker-compose.local.yml`
 - print the current image name and recent logs
-
-If you need to skip backup for a quick rebuild:
-
-```bash
-SKIP_BACKUP=1 ./deploy/update-fork.sh
-```
 
 For **named volumes version** (docker-compose.yml):
 
