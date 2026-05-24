@@ -1,0 +1,7 @@
+{
+  "name": "sub2api-dev-tools",
+  "private": true,
+  "scripts": {
+    "dev": "powershell -ExecutionPolicy Bypass -File .\\script\\dev.ps1"
+  }
+}
