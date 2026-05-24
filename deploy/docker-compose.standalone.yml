@@ -27,9 +27,9 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       # =======================================================================
-      # Auto Setup
+      # Setup wizard mode (disable auto-setup so first boot enters web wizard)
       # =======================================================================
-      - AUTO_SETUP=true
+      - AUTO_SETUP=false
 
       # =======================================================================
       # Server Configuration

@@ -37,9 +37,9 @@ services:
       # - ./codex-instructions.md.tmpl:/app/data/codex-instructions.md.tmpl:ro
     environment:
       # =======================================================================
-      # Auto Setup (REQUIRED for Docker deployment)
+      # Setup wizard mode (disable auto-setup so first boot enters web wizard)
       # =======================================================================
-      - AUTO_SETUP=true
+      - AUTO_SETUP=false
 
       # =======================================================================
       # Server Configuration
