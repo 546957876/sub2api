@@ -182,6 +182,19 @@ docker compose -f docker-compose.local.yml down
 rm -rf data/ postgres_data/ redis_data/
 ```
 
+If you deploy from your own fork using the local source build flow, you can use:
+
+```bash
+chmod +x deploy/update-fork.sh
+./deploy/update-fork.sh
+```
+
+This script will:
+- `git pull origin <current-branch>`
+- rebuild the local Docker image from your forked source
+- restart the stack with `docker-compose.local.yml`
+- print the current image name and recent logs
+
 For **named volumes version** (docker-compose.yml):
 
 ```bash
