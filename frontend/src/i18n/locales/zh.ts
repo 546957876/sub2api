@@ -1059,16 +1059,13 @@ export default {
     rulesLine1: '官方价格（人民币） = 官方 USDT 价格 × 7',
     rulesLine2: '平台价格（人民币） = 官方 USDT 价格 × 分组倍率',
     activeMultiplier: '当前倍率',
-    summaryOfficial: '官方合计',
-    summaryOur: '平台合计',
-    ourPriceHint: '按当前倍率换算',
     columns: {
       model: '模型 ID',
-      item: '计费项',
-      officialUsd: '官方价格（USDT）',
-      officialRmb: '官方价格（RMB）',
+      inputPrice: '输入价格',
+      outputPrice: '输出价格',
+      cacheWritePrice: '缓存创建',
+      cacheReadPrice: '缓存读取',
       multiplier: '倍率',
-      ourRmb: '平台价格（RMB）',
       discount: '相当于官方'
     },
     categoryTitles: {

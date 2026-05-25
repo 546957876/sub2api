@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#0d1117] text-white">
-    <div class="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+    <div class="mx-auto max-w-[1480px] px-6 py-10 lg:px-8">
       <div class="mb-8">
         <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
           <Icon name="calculator" size="sm" class="text-amber-400" />
@@ -90,81 +90,60 @@
 
       <div class="rounded-3xl border border-[#243042] bg-[#131c2a] shadow-[0_8px_30px_rgba(0,0,0,0.28)]">
         <div class="border-b border-white/8 px-5 py-5 lg:px-6">
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h2 class="text-2xl font-semibold text-white">
-                {{ currentCategory.title }}
-              </h2>
-              <p class="mt-1 text-sm text-white/55">
-                {{ currentCategory.description }}
-              </p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 lg:flex lg:items-center">
-              <div class="rounded-2xl border border-white/8 bg-[#0d1420] px-4 py-3">
-                <p class="text-xs uppercase tracking-[0.16em] text-white/40">
-                  {{ t('pricingPage.summaryOfficial') }}
-                </p>
-                <p class="mt-1 text-lg font-semibold text-white">
-                  {{ formatCompactPrice(currentCategorySummary.officialRmbTotal) }}
-                </p>
-              </div>
-              <div class="rounded-2xl border border-amber-400/15 bg-amber-500/10 px-4 py-3">
-                <p class="text-xs uppercase tracking-[0.16em] text-amber-200/70">
-                  {{ t('pricingPage.summaryOur') }}
-                </p>
-                <p class="mt-1 text-lg font-semibold text-amber-300">
-                  {{ formatCompactPrice(currentCategorySummary.ourRmbTotal) }}
-                </p>
-              </div>
-            </div>
-          </div>
+          <h2 class="text-2xl font-semibold text-white">
+            {{ currentCategory.title }}
+          </h2>
+          <p class="mt-1 text-sm text-white/55">
+            {{ currentCategory.description }}
+          </p>
         </div>
 
         <div class="overflow-x-auto px-4 py-4 lg:px-6 lg:py-6">
-          <table class="min-w-full border-separate border-spacing-0 overflow-hidden rounded-2xl border border-white/8 bg-[#101826]">
+          <table class="min-w-[1220px] border-separate border-spacing-0 overflow-hidden rounded-2xl border border-white/8 bg-[#101826]">
             <thead>
               <tr class="bg-[#1a2435] text-left text-sm text-white/70">
-                <th class="px-5 py-4 font-medium">{{ t('pricingPage.columns.model') }}</th>
-                <th class="px-4 py-4 font-medium">{{ t('pricingPage.columns.item') }}</th>
-                <th class="px-4 py-4 font-medium">{{ t('pricingPage.columns.officialUsd') }}</th>
-                <th class="px-4 py-4 font-medium">{{ t('pricingPage.columns.officialRmb') }}</th>
-                <th class="px-4 py-4 font-medium">{{ t('pricingPage.columns.multiplier') }}</th>
-                <th class="px-4 py-4 font-medium">{{ t('pricingPage.columns.ourRmb') }}</th>
-                <th class="px-4 py-4 font-medium">{{ t('pricingPage.columns.discount') }}</th>
+                <th class="w-[250px] px-5 py-4 font-medium">{{ t('pricingPage.columns.model') }}</th>
+                <th v-if="showInputColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.inputPrice') }}</th>
+                <th v-if="showOutputColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.outputPrice') }}</th>
+                <th v-if="showCacheWriteColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.cacheWritePrice') }}</th>
+                <th v-if="showCacheReadColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.cacheReadPrice') }}</th>
+                <th class="w-[100px] px-4 py-4 font-medium">{{ t('pricingPage.columns.multiplier') }}</th>
+                <th class="w-[110px] px-4 py-4 font-medium">{{ t('pricingPage.columns.discount') }}</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 v-for="row in currentRows"
-                :key="`${currentCategory.key}-${row.model}-${row.itemKey}`"
+                :key="`${currentCategory.key}-${row.model}`"
                 class="border-t border-white/6 text-sm text-white/85"
               >
                 <td class="border-t border-white/6 px-5 py-4 align-top">
                   <div class="flex flex-col gap-1">
-                    <span class="font-semibold text-white">{{ row.model }}</span>
+                    <span class="text-[1.05rem] font-semibold leading-6 text-white [word-break:break-word]">{{ row.model }}</span>
                     <span v-if="row.modelAlias" class="text-xs text-white/40">{{ row.modelAlias }}</span>
                   </div>
                 </td>
-                <td class="border-t border-white/6 px-4 py-4 align-top text-white/65">
-                  {{ row.itemLabel }}
+
+                <td v-if="showInputColumn" class="border-t border-white/6 px-4 py-4 align-top">
+                  <PriceStack :metric="row.input" />
                 </td>
-                <td class="border-t border-white/6 px-4 py-4 align-top font-mono text-white/80">
-                  {{ formatUsd(row.officialUsd) }}
+
+                <td v-if="showOutputColumn" class="border-t border-white/6 px-4 py-4 align-top">
+                  <PriceStack :metric="row.output" />
                 </td>
-                <td class="border-t border-white/6 px-4 py-4 align-top">
-                  <div class="font-semibold text-white">{{ formatRmb(row.officialRmb) }}</div>
-                  <div class="mt-1 text-xs text-white/35">{{ row.unitLabel }}</div>
+
+                <td v-if="showCacheWriteColumn" class="border-t border-white/6 px-4 py-4 align-top">
+                  <PriceStack :metric="row.cacheWrite" />
                 </td>
+
+                <td v-if="showCacheReadColumn" class="border-t border-white/6 px-4 py-4 align-top">
+                  <PriceStack :metric="row.cacheRead" />
+                </td>
+
                 <td class="border-t border-white/6 px-4 py-4 align-top text-white/65">
                   {{ normalizedMultiplier.toFixed(2) }}x
                 </td>
-                <td class="border-t border-white/6 px-4 py-4 align-top">
-                  <div class="font-semibold text-amber-300">{{ formatRmb(row.ourRmb) }}</div>
-                  <div class="mt-1 text-xs text-white/35">
-                    {{ t('pricingPage.ourPriceHint') }}
-                  </div>
-                </td>
+
                 <td class="border-t border-white/6 px-4 py-4 align-top">
                   <span
                     class="inline-flex rounded-full px-3 py-1 text-xs font-semibold"
@@ -187,31 +166,66 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Icon from '@/components/icons/Icon.vue'
 
 type PricingTabKey = 'claude' | 'codex' | 'gemini'
-type PricingItemKey = 'input' | 'output' | 'cacheWrite5m' | 'cacheWrite1h' | 'cacheRead'
+
+interface PriceMetricInput {
+  officialUsd: number | null
+}
 
 interface PricingRowSource {
   model: string
   modelAlias?: string
-  prices: Partial<Record<PricingItemKey, number>>
+  input?: PriceMetricInput
+  output?: PriceMetricInput
+  cacheWrite?: PriceMetricInput
+  cacheRead?: PriceMetricInput
+}
+
+interface DisplayMetric {
+  officialUsd: number | null
+  officialRmb: number | null
+  ourRmb: number | null
 }
 
 interface PricingDisplayRow {
   model: string
   modelAlias?: string
-  itemKey: PricingItemKey
-  itemLabel: string
-  officialUsd: number
-  officialRmb: number
-  ourRmb: number
+  input: DisplayMetric
+  output: DisplayMetric
+  cacheWrite: DisplayMetric
+  cacheRead: DisplayMetric
   discountFold: number
   discountText: string
-  unitLabel: string
 }
+
+const PriceStack = defineComponent({
+  name: 'PriceStack',
+  props: {
+    metric: {
+      type: Object as () => DisplayMetric,
+      required: true,
+    },
+  },
+  setup(props) {
+    return () => {
+      if (props.metric.officialUsd == null || props.metric.officialRmb == null || props.metric.ourRmb == null) {
+        return h('div', { class: 'text-sm text-white/30' }, '—')
+      }
+
+      return h('div', { class: 'min-w-[170px]' }, [
+        h('div', { class: 'flex items-baseline gap-1.5 whitespace-nowrap' }, [
+          h('span', { class: 'text-[1.95rem] font-bold leading-none text-amber-400' }, `¥${props.metric.ourRmb.toFixed(2)}`),
+          h('span', { class: 'whitespace-nowrap text-sm text-white/45' }, '/ 1M tokens'),
+        ]),
+        h('div', { class: 'mt-1 whitespace-nowrap text-xs text-white/35' }, `官方价格 ¥${props.metric.officialRmb.toFixed(2)}`),
+      ])
+    }
+  },
+})
 
 const RMB_PER_USDT = 7
 const multiplierPresets = [0.5, 1, 1.5, 2, 2.5, 3]
@@ -233,14 +247,6 @@ const normalizedMultiplier = computed(() => {
   return value
 })
 
-const itemLabels: Record<PricingItemKey, string> = {
-  input: '输入',
-  output: '输出',
-  cacheWrite5m: '缓存写入（5m）',
-  cacheWrite1h: '缓存写入（1h）',
-  cacheRead: '缓存读取',
-}
-
 const pricingSource: Record<PricingTabKey, { titleKey: string; descriptionKey: string; rows: PricingRowSource[] }> = {
   claude: {
     titleKey: 'pricingPage.categoryTitles.claude',
@@ -249,22 +255,34 @@ const pricingSource: Record<PricingTabKey, { titleKey: string; descriptionKey: s
       {
         model: 'claude-opus-4-7',
         modelAlias: 'Claude Opus 4.7',
-        prices: { input: 5, output: 25, cacheWrite5m: 6.25, cacheWrite1h: 10, cacheRead: 0.5 },
+        input: { officialUsd: 5 },
+        output: { officialUsd: 25 },
+        cacheWrite: { officialUsd: 6.25 },
+        cacheRead: { officialUsd: 0.5 },
       },
       {
         model: 'claude-opus-4-6',
         modelAlias: 'Claude Opus 4.6',
-        prices: { input: 5, output: 25, cacheWrite5m: 6.25, cacheWrite1h: 10, cacheRead: 0.5 },
+        input: { officialUsd: 5 },
+        output: { officialUsd: 25 },
+        cacheWrite: { officialUsd: 6.25 },
+        cacheRead: { officialUsd: 0.5 },
       },
       {
         model: 'claude-sonnet-4-6',
         modelAlias: 'Claude Sonnet 4.6',
-        prices: { input: 3, output: 15, cacheWrite5m: 3.75, cacheWrite1h: 6, cacheRead: 0.3 },
+        input: { officialUsd: 3 },
+        output: { officialUsd: 15 },
+        cacheWrite: { officialUsd: 3.75 },
+        cacheRead: { officialUsd: 0.3 },
       },
       {
         model: 'claude-haiku-4-5',
         modelAlias: 'Claude Haiku 4.5',
-        prices: { input: 1, output: 5, cacheWrite5m: 1.25, cacheWrite1h: 2, cacheRead: 0.1 },
+        input: { officialUsd: 1 },
+        output: { officialUsd: 5 },
+        cacheWrite: { officialUsd: 1.25 },
+        cacheRead: { officialUsd: 0.1 },
       },
     ],
   },
@@ -275,12 +293,16 @@ const pricingSource: Record<PricingTabKey, { titleKey: string; descriptionKey: s
       {
         model: 'gpt-5.3-codex',
         modelAlias: 'Standard',
-        prices: { input: 1.75, output: 14, cacheRead: 0.175 },
+        input: { officialUsd: 1.75 },
+        output: { officialUsd: 14 },
+        cacheRead: { officialUsd: 0.175 },
       },
       {
         model: 'gpt-5.3-codex-priority',
         modelAlias: 'Priority',
-        prices: { input: 3.5, output: 28, cacheRead: 0.35 },
+        input: { officialUsd: 3.5 },
+        output: { officialUsd: 28 },
+        cacheRead: { officialUsd: 0.35 },
       },
     ],
   },
@@ -291,17 +313,23 @@ const pricingSource: Record<PricingTabKey, { titleKey: string; descriptionKey: s
       {
         model: 'gemini-2.5-pro',
         modelAlias: 'Google Gemini 2.5 Pro',
-        prices: { input: 1.25, output: 10, cacheRead: 0.31 },
+        input: { officialUsd: 1.25 },
+        output: { officialUsd: 10 },
+        cacheRead: { officialUsd: 0.31 },
       },
       {
         model: 'gemini-2.5-flash',
         modelAlias: 'Google Gemini 2.5 Flash',
-        prices: { input: 0.3, output: 2.5, cacheRead: 0.075 },
+        input: { officialUsd: 0.3 },
+        output: { officialUsd: 2.5 },
+        cacheRead: { officialUsd: 0.075 },
       },
       {
         model: 'gemini-2.5-flash-lite',
         modelAlias: 'Google Gemini 2.5 Flash Lite',
-        prices: { input: 0.1, output: 0.4, cacheRead: 0.025 },
+        input: { officialUsd: 0.1 },
+        output: { officialUsd: 0.4 },
+        cacheRead: { officialUsd: 0.025 },
       },
     ],
   },
@@ -316,54 +344,41 @@ const currentCategory = computed(() => {
   }
 })
 
-function buildRows(rows: PricingRowSource[]): PricingDisplayRow[] {
-  return rows.flatMap((row) =>
-    (Object.entries(row.prices) as Array<[PricingItemKey, number | undefined]>)
-      .flatMap(([itemKey, value]) => {
-        if (typeof value !== 'number' || value <= 0) {
-          return []
-        }
+function metricToDisplay(metric?: PriceMetricInput): DisplayMetric {
+  if (!metric || metric.officialUsd == null) {
+    return { officialUsd: null, officialRmb: null, ourRmb: null }
+  }
 
-        const officialUsd = value
-        const officialRmb = officialUsd * RMB_PER_USDT
-        const ourRmb = officialUsd * normalizedMultiplier.value
-        const discountFold = officialRmb > 0 ? (ourRmb / officialRmb) * 10 : 0
-
-        return [{
-          model: row.model,
-          modelAlias: row.modelAlias,
-          itemKey,
-          itemLabel: itemLabels[itemKey],
-          officialUsd,
-          officialRmb,
-          ourRmb,
-          discountFold,
-          discountText: `${discountFold.toFixed(1)}折`,
-          unitLabel: itemKey === 'input' || itemKey === 'output' || itemKey.startsWith('cache')
-            ? '/ 1M tokens'
-            : '',
-        }]
-      }),
-  )
+  return {
+    officialUsd: metric.officialUsd,
+    officialRmb: metric.officialUsd * RMB_PER_USDT,
+    ourRmb: metric.officialUsd * normalizedMultiplier.value,
+  }
 }
 
-const currentRows = computed(() => buildRows(pricingSource[activeTab.value].rows))
+const currentRows = computed<PricingDisplayRow[]>(() =>
+  pricingSource[activeTab.value].rows.map((row) => {
+    const input = metricToDisplay(row.input)
+    const discountFold =
+      input.officialRmb && input.ourRmb != null && input.officialRmb > 0
+        ? (input.ourRmb / input.officialRmb) * 10
+        : 0
 
-const currentCategorySummary = computed(() => {
-  const officialRmbTotal = currentRows.value.reduce((sum, row) => sum + row.officialRmb, 0)
-  const ourRmbTotal = currentRows.value.reduce((sum, row) => sum + row.ourRmb, 0)
-  return { officialRmbTotal, ourRmbTotal }
-})
+    return {
+      model: row.model,
+      modelAlias: row.modelAlias,
+      input,
+      output: metricToDisplay(row.output),
+      cacheWrite: metricToDisplay(row.cacheWrite),
+      cacheRead: metricToDisplay(row.cacheRead),
+      discountFold,
+      discountText: `${discountFold.toFixed(1)}折`,
+    }
+  }),
+)
 
-function formatUsd(value: number): string {
-  return `$${value.toFixed(value >= 10 ? 2 : 3).replace(/\.?0+$/, '')}`
-}
-
-function formatRmb(value: number): string {
-  return `¥${value.toFixed(2)}`
-}
-
-function formatCompactPrice(value: number): string {
-  return `¥${value.toFixed(2)}`
-}
+const showInputColumn = computed(() => currentRows.value.some((row) => row.input.officialUsd != null))
+const showOutputColumn = computed(() => currentRows.value.some((row) => row.output.officialUsd != null))
+const showCacheWriteColumn = computed(() => currentRows.value.some((row) => row.cacheWrite.officialUsd != null))
+const showCacheReadColumn = computed(() => currentRows.value.some((row) => row.cacheRead.officialUsd != null))
 </script>

@@ -1055,16 +1055,13 @@ export default {
     rulesLine1: 'Official RMB price = official USDT price × 7',
     rulesLine2: 'Platform RMB price = official USDT price × group multiplier',
     activeMultiplier: 'Active Multiplier',
-    summaryOfficial: 'Official Total',
-    summaryOur: 'Platform Total',
-    ourPriceHint: 'Converted with current multiplier',
     columns: {
       model: 'Model ID',
-      item: 'Billing Item',
-      officialUsd: 'Official (USDT)',
-      officialRmb: 'Official (RMB)',
+      inputPrice: 'Input Price',
+      outputPrice: 'Output Price',
+      cacheWritePrice: 'Cache Write',
+      cacheReadPrice: 'Cache Read',
       multiplier: 'Multiplier',
-      ourRmb: 'Platform (RMB)',
       discount: 'Equivalent Discount'
     },
     categoryTitles: {
