@@ -9,6 +9,7 @@ export default {
     dashboard: '控制台',
     login: '登录',
     getStarted: '立即开始',
+    viewPricing: '查看模型价格',
     goToDashboard: '进入控制台',
     // 新增：面向用户的价值主张
     heroSubtitle: '一个密钥，畅用多个 AI 模型',
