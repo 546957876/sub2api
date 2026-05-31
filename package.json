@@ -2,6 +2,9 @@
   "name": "sub2api-dev-tools",
   "private": true,
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File .\\script\\dev.ps1"
+    "dev": "powershell -ExecutionPolicy Bypass -File .\\script\\dev.ps1",
+    "build:sub2api2": "powershell -ExecutionPolicy Bypass -File .\\script\\build-sub2api2.ps1",
+    "run:sub2api2": "powershell -ExecutionPolicy Bypass -File .\\script\\run-sub2api2.ps1",
+    "start:sub2api2": "npm.cmd run build:sub2api2 && npm.cmd run run:sub2api2"
   }
 }

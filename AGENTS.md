@@ -52,6 +52,41 @@ cd ~/sub2api
 ./deploy/update-fork.sh
 ```
 
+### 4. Windows 本地测试版 EXE
+
+本地如需保留旧的 `backend/sub2api.exe`，同时测试新的 Windows 可执行文件，统一使用：
+
+```bash
+cd D:\JS\sub2api
+npm.cmd run build:sub2api2
+```
+
+输出文件：
+
+```bash
+D:\JS\sub2api\backend\sub2api2.exe
+```
+
+仅启动已编译好的测试版：
+
+```bash
+cd D:\JS\sub2api
+npm.cmd run run:sub2api2
+```
+
+一键重新编译并启动：
+
+```bash
+cd D:\JS\sub2api
+npm.cmd run start:sub2api2
+```
+
+说明：
+
+- `sub2api2.exe` 用于本地测试，不覆盖旧的 `sub2api.exe`
+- 本地测试版采用 `embed` 构建，支持直接访问前端页面
+- 本地测试版不使用 `-trimpath`，避免 Windows 下 `Asia/Shanghai` 时区报错
+
 ## 上游同步建议
 
 上游 `upstream/main` 有更新时，建议优先同步到本地，再根据情况决定是先进入 `develop` 测试，还是直接合入 `main`。
