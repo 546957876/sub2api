@@ -389,7 +389,6 @@ export default {
     channelMonitor: '渠道监控',
     channelStatus: '渠道状态',
     modelPricing: '模型价格',
-    buyKami: '购买卡密',
     riskControl: '风控中心',
   },
 

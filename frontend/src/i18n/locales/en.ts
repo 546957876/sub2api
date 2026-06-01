@@ -389,7 +389,6 @@ export default {
     channelMonitor: 'Channel Monitor',
     channelStatus: 'Channel Status',
     modelPricing: 'Model Pricing',
-    buyKami: 'Buy Cards',
     riskControl: 'Risk Control',
   },
 
