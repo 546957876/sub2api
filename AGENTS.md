@@ -87,6 +87,90 @@ npm.cmd run start:sub2api2
 - 本地测试版采用 `embed` 构建，支持直接访问前端页面
 - 本地测试版不使用 `-trimpath`，避免 Windows 下 `Asia/Shanghai` 时区报错
 
+### 5. 前端二开隔离层
+
+前端二开的**首要目标**不是“先把页面改出来”，而是：
+
+- 未来继续同步 `upstream/main` 时，**尽量减少冲突**
+- 减少因为二开散落在上游文件里而带来的合并错误、回归和隐藏 BUG
+
+为了实现这一点，前端默认采用“二开隔离层”策略。
+
+自定义前端代码优先放在：
+
+```bash
+frontend/src/custom/
+```
+
+当前约定的主二开包目录为：
+
+```bash
+frontend/src/custom/packs/override/
+```
+
+这里的 `override` 含义不是品牌名，而是：
+
+- 这是对上游前端的**覆盖层**
+- 目标是把二开代码与上游代码分开
+- 方便后续同步 `upstream/main` 时减少冲突
+- 这是当前前端二开的**默认落点**
+
+#### 允许放在隔离层的内容
+
+- 自定义路由
+- 自定义侧边栏菜单
+- 自定义页面（例如新的 `/home`、`/pricing`）
+- 后续必要的页面 override 入口
+
+当前约定示例：
+
+- `/home` 的自定义版本应放在：
+
+```bash
+frontend/src/custom/packs/override/views/
+```
+
+- `/pricing` 这类明确属于二开自己新写的页面，也应放在：
+
+```bash
+frontend/src/custom/packs/override/views/
+```
+
+不要继续长期保留在上游原始 `frontend/src/views/` 目录中。
+
+#### 不应放在隔离层的内容
+
+- 本来就可以通过后台“系统设置”完成的站点配置
+- 例如：站点名、站点 Logo、文档链接、公告内容等
+
+这些应继续优先通过后台配置完成，而不是重新硬编码进 `custom` 层。
+
+#### 开发约束
+
+- 不要使用品牌名给二开隔离层目录命名
+- 能通过 `frontend/src/custom/` 承接的 UI 二开，不要继续散落回上游目录
+- 只有“接入点”本身才允许少量修改上游热点文件
+- 新的 UI 二开需求，默认先判断能否放进 `override` 层；不要先去改上游原始页面
+- 如果一个页面已经明确属于“我们自己新写/长期自定义”的页面（例如 `/home`、`/pricing`），页面主体应保留在 `override/views/`，不要再回写到上游 `frontend/src/views/`
+- 修改上游热点文件时，目标应该是“增加稳定接入点”，而不是继续把业务/UI 细节堆进去
+
+#### 尽量少直接改的上游热点文件
+
+以下文件后续仍可能被上游频繁更新，非必要不要长期直接写业务逻辑进去：
+
+- `frontend/src/router/index.ts`
+- `frontend/src/components/layout/AppSidebar.vue`
+- `frontend/src/views/HomeView.vue`
+- `frontend/src/views/KeyUsageView.vue`
+- `frontend/src/views/admin/UsageView.vue`
+- `frontend/src/views/admin/AccountsView.vue`
+
+原则：
+
+- 如需新增页面/入口，优先通过 `frontend/src/custom/` 接入
+- 能放在 `custom` 的，不要继续散落回上游目录
+- 如需同步上游更新，优先保护这些接入点的稳定性，而不是在上游热点文件里反复手工补丁
+
 ## 上游同步建议
 
 上游 `upstream/main` 有更新时，建议优先同步到本地，再根据情况决定是先进入 `develop` 测试，还是直接合入 `main`。
