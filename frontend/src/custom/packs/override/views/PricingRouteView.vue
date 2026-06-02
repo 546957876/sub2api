@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import AppLayout from '@/components/layout/AppLayout.vue'
 import { useAuthStore } from '@/stores/auth'
+import PublicSiteLayout from './PublicSiteLayout.vue'
 import PricingView from './PricingView.vue'
 
 const authStore = useAuthStore()
@@ -12,5 +13,7 @@ const useEmbeddedLayout = computed(() => authStore.isAuthenticated)
   <AppLayout v-if="useEmbeddedLayout">
     <PricingView />
   </AppLayout>
-  <PricingView v-else />
+  <PublicSiteLayout v-else>
+    <PricingView />
+  </PublicSiteLayout>
 </template>
