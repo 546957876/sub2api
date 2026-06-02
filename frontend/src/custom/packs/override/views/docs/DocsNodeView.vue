@@ -16,6 +16,32 @@
     </DocsSection>
 
     <DocsSection>
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">安装方式</h2>
+          <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/80">
+            根据你当前使用的系统，切换到对应的安装说明和命令。
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="platform in platforms"
+            :key="platform.key"
+            type="button"
+            class="rounded-full border px-4 py-2 text-sm font-medium transition"
+            :class="activePlatform === platform.key
+              ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950'
+              : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/12 dark:bg-white/5 dark:text-white/84 dark:hover:border-white/18 dark:hover:bg-white/8 dark:hover:text-white'"
+            @click="activePlatform = platform.key"
+          >
+            {{ platform.label }}
+          </button>
+        </div>
+      </div>
+    </DocsSection>
+
+    <DocsSection v-if="activePlatform === 'windows'">
       <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">Windows</h2>
       <div class="mt-6 space-y-5">
         <DocsMethodBlock title="方法一：官方安装包（推荐）" boxed>
@@ -34,7 +60,7 @@
       </div>
     </DocsSection>
 
-    <DocsSection>
+    <DocsSection v-else-if="activePlatform === 'macos'">
       <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">macOS</h2>
       <div class="mt-6 space-y-5">
         <DocsMethodBlock title="方法一：使用 Homebrew（推荐）">
@@ -49,7 +75,7 @@
       </div>
     </DocsSection>
 
-    <DocsSection>
+    <DocsSection v-else>
       <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">Linux</h2>
       <div class="mt-6 space-y-5">
         <DocsMethodBlock title="方法一：NodeSource（Ubuntu / Debian）">
@@ -77,10 +103,21 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import CopyCommandBlock from '../CopyCommandBlock.vue'
 import DocsMethodBlock from './components/DocsMethodBlock.vue'
 import DocsNoteBox from './components/DocsNoteBox.vue'
 import DocsSection from './components/DocsSection.vue'
+
+type PlatformKey = 'windows' | 'macos' | 'linux'
+
+const platforms = [
+  { key: 'windows', label: 'Windows' },
+  { key: 'macos', label: 'macOS' },
+  { key: 'linux', label: 'Linux' },
+] as const
+
+const activePlatform = ref<PlatformKey>('windows')
 
 const windowsChocolateyCommand = `choco install nodejs-lts`
 const windowsScoopCommand = `scoop install nodejs-lts`

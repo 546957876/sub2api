@@ -25,14 +25,74 @@
     </DocsSection>
 
     <DocsSection>
-      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">安装 Codex CLI</h2>
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">安装与运行</h2>
+          <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/80">
+            先根据当前系统安装 Codex CLI，再完成第一次启动。
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="platform in platforms"
+            :key="platform.key"
+            type="button"
+            class="rounded-full border px-4 py-2 text-sm font-medium transition"
+            :class="activePlatform === platform.key
+              ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950'
+              : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/12 dark:bg-white/5 dark:text-white/84 dark:hover:border-white/18 dark:hover:bg-white/8 dark:hover:text-white'"
+            @click="activePlatform = platform.key"
+          >
+            {{ platform.label }}
+          </button>
+        </div>
+      </div>
+    </DocsSection>
+
+    <DocsSection v-if="activePlatform === 'windows'">
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">Windows</h2>
       <div class="mt-6 space-y-5">
-        <DocsMethodBlock title="方法一：使用 npm（通用）">
-          <CopyCommandBlock label="npm" :command="npmInstallCommand" />
+        <DocsMethodBlock title="方法一：通过 npm 安装（推荐）">
+          <CopyCommandBlock label="PowerShell" :command="npmInstallCommand" />
         </DocsMethodBlock>
 
-        <DocsMethodBlock title="方法二：使用官方安装脚本（macOS / Linux）">
+        <DocsMethodBlock title="方法二：使用 API Key 直接启动">
+          <CopyCommandBlock label="PowerShell" :command="windowsApiKeyCommand" />
+        </DocsMethodBlock>
+      </div>
+    </DocsSection>
+
+    <DocsSection v-else-if="activePlatform === 'macos'">
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">macOS</h2>
+      <div class="mt-6 space-y-5">
+        <DocsMethodBlock title="方法一：通过 npm 安装">
+          <CopyCommandBlock label="Bash / Zsh" :command="npmInstallCommand" />
+        </DocsMethodBlock>
+
+        <DocsMethodBlock title="方法二：官方安装脚本">
+          <CopyCommandBlock label="Bash / Zsh" :command="shellInstallCommand" />
+        </DocsMethodBlock>
+
+        <DocsMethodBlock title="使用 API Key 启动">
+          <CopyCommandBlock label="Bash / Zsh" :command="unixApiKeyCommand" />
+        </DocsMethodBlock>
+      </div>
+    </DocsSection>
+
+    <DocsSection v-else>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">Linux</h2>
+      <div class="mt-6 space-y-5">
+        <DocsMethodBlock title="方法一：通过 npm 安装">
+          <CopyCommandBlock label="Bash" :command="npmInstallCommand" />
+        </DocsMethodBlock>
+
+        <DocsMethodBlock title="方法二：官方安装脚本">
           <CopyCommandBlock label="Bash" :command="shellInstallCommand" />
+        </DocsMethodBlock>
+
+        <DocsMethodBlock title="使用 API Key 启动">
+          <CopyCommandBlock label="Bash" :command="unixApiKeyCommand" />
         </DocsMethodBlock>
       </div>
     </DocsSection>
@@ -44,17 +104,6 @@
       </p>
       <div class="mt-4">
         <CopyCommandBlock label="Run Codex" :command="runCodexCommand" />
-      </div>
-    </DocsSection>
-
-    <DocsSection>
-      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">API Key 方式（可选）</h2>
-      <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/80">
-        如果你打算使用 API Key 方式启动 Codex，可以先设置 `OPENAI_API_KEY`，再执行 `codex`。
-      </p>
-      <div class="mt-4 space-y-4">
-        <CopyCommandBlock label="Windows PowerShell" :command="windowsApiKeyCommand" />
-        <CopyCommandBlock label="macOS / Linux Bash" :command="unixApiKeyCommand" />
       </div>
     </DocsSection>
 
@@ -75,18 +124,29 @@
       <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">说明</h2>
       <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-white/80">
         <li>1. 本页主要覆盖 Codex CLI 的安装、启动与认证流程。</li>
-        <li>2. 后续如果要补“通过本平台地址和密钥接入”的专用脚本或配置方式，可以再单独扩展，不建议和 CLI 基础安装说明混在一起。</li>
-        <li>3. Windows 用户如果要更完整地使用类 Linux 命令行体验，可后续再根据需求考虑 WSL2；本页先只提供最直接的安装方式。</li>
+        <li>2. 如果后续要补“通过平台脚本一键接入”的方式，可以在此基础上再扩展，不建议和 CLI 基础安装说明混在一起。</li>
+        <li>3. 本页默认按 OpenAI 官方 Codex CLI 的安装逻辑组织步骤。</li>
       </ul>
     </DocsSection>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import CopyCommandBlock from '../CopyCommandBlock.vue'
 import DocsMethodBlock from './components/DocsMethodBlock.vue'
 import DocsNoteBox from './components/DocsNoteBox.vue'
 import DocsSection from './components/DocsSection.vue'
+
+type PlatformKey = 'windows' | 'macos' | 'linux'
+
+const platforms = [
+  { key: 'windows', label: 'Windows' },
+  { key: 'macos', label: 'macOS' },
+  { key: 'linux', label: 'Linux' },
+] as const
+
+const activePlatform = ref<PlatformKey>('windows')
 
 const npmInstallCommand = `npm install -g @openai/codex`
 const shellInstallCommand = `curl -fsSL https://chatgpt.com/codex/install.sh | sh`
