@@ -101,8 +101,81 @@
           </p>
         </div>
 
-        <div class="overflow-x-auto px-4 py-4 lg:px-6 lg:py-6">
-          <table class="min-w-[1220px] border-separate border-spacing-0 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/8 dark:bg-[#101826]">
+        <div class="px-4 py-4 lg:px-6 lg:py-6">
+          <div class="space-y-4 lg:hidden">
+            <article
+              v-for="row in currentRows"
+              :key="`${currentCategory.key}-mobile-${row.model}`"
+              class="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:border-white/8 dark:bg-[#101826] dark:shadow-none"
+            >
+              <div class="mb-4">
+                <p class="text-base font-semibold text-slate-900 dark:text-white">{{ row.model }}</p>
+                <p v-if="row.displayName" class="mt-1 text-xs text-slate-400 dark:text-white/45">{{ row.displayName }}</p>
+              </div>
+
+              <div class="grid gap-3">
+                <div v-if="row.official.input != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.inputPrice') }}</p>
+                  <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
+                    {{ formatRmb(multiplyPrice(row.official.input)) }}
+                    <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
+                  </div>
+                  <p class="mt-1 text-xs text-slate-400 dark:text-white/38">
+                    官方价格 {{ formatRmb(toOfficialRmb(row.official.input)) }}
+                  </p>
+                </div>
+
+                <div v-if="row.official.output != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.outputPrice') }}</p>
+                  <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
+                    {{ formatRmb(multiplyPrice(row.official.output)) }}
+                    <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
+                  </div>
+                  <p class="mt-1 text-xs text-slate-400 dark:text-white/38">
+                    官方价格 {{ formatRmb(toOfficialRmb(row.official.output)) }}
+                  </p>
+                </div>
+
+                <div v-if="row.official.cacheWrite != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.cacheWritePrice') }}</p>
+                  <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
+                    {{ formatRmb(multiplyPrice(row.official.cacheWrite)) }}
+                    <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
+                  </div>
+                  <p class="mt-1 text-xs text-slate-400 dark:text-white/38">
+                    官方价格 {{ formatRmb(toOfficialRmb(row.official.cacheWrite)) }}
+                  </p>
+                </div>
+
+                <div v-if="row.official.cacheRead != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.cacheReadPrice') }}</p>
+                  <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
+                    {{ formatRmb(multiplyPrice(row.official.cacheRead)) }}
+                    <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
+                  </div>
+                  <p class="mt-1 text-xs text-slate-400 dark:text-white/38">
+                    官方价格 {{ formatRmb(toOfficialRmb(row.official.cacheRead)) }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-4 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.multiplier') }}</p>
+                  <p class="mt-1 text-sm font-medium text-slate-700 dark:text-white/78">{{ normalizedMultiplier.toFixed(2) }}x</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.discount') }}</p>
+                  <span class="mt-1 inline-flex rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-300">
+                    {{ discountLabel }}
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="hidden overflow-x-auto lg:block">
+            <table class="min-w-[1220px] border-separate border-spacing-0 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/8 dark:bg-[#101826]">
             <thead>
               <tr class="bg-slate-50 text-left text-sm text-slate-500 dark:bg-[#1a2435] dark:text-white/70">
                 <th class="w-[250px] px-5 py-4 font-medium">{{ t('pricingPage.columns.model') }}</th>
@@ -186,7 +259,8 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       </div>
     </div>
