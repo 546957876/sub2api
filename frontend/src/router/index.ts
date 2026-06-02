@@ -10,6 +10,7 @@ import { useAdminSettingsStore } from '@/stores/adminSettings'
 import { useNavigationLoadingState } from '@/composables/useNavigationLoading'
 import { useRoutePrefetch } from '@/composables/useRoutePrefetch'
 import { getSetupStatus } from '@/api/setup'
+import { getCustomRoutes } from '@/custom/active'
 import { resolveCompletedSetupRedirectPath } from './setupRedirect'
 import { resolveDocumentTitle } from './title'
 
@@ -174,15 +175,7 @@ const routes: RouteRecordRaw[] = [
       title: 'Legal Document'
     }
   },
-  {
-    path: '/pricing',
-    name: 'Pricing',
-    component: () => import('@/views/public/PricingView.vue'),
-    meta: {
-      requiresAuth: false,
-      title: 'Pricing'
-    }
-  },
+  ...getCustomRoutes(),
 
   // ==================== User Routes ====================
   {
