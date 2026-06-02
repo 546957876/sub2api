@@ -16,11 +16,16 @@
                 class="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-medium transition"
                 :class="activeDoc === item.key
                   ? 'bg-amber-100 text-amber-900 shadow-[0_10px_24px_rgba(251,191,36,0.12)] dark:bg-[#3a2417] dark:text-white dark:shadow-none'
-                  : 'bg-slate-50 text-slate-700 hover:bg-slate-100 dark:bg-white/5 dark:text-white/84 dark:hover:bg-white/8'"
-                @click="activeDoc = item.key"
+                  : item.enabled
+                    ? 'bg-slate-50 text-slate-700 hover:bg-slate-100 dark:bg-white/5 dark:text-white/84 dark:hover:bg-white/8'
+                    : 'cursor-not-allowed bg-slate-50/80 text-slate-400 dark:bg-white/[0.035] dark:text-white/38'"
+                :disabled="!item.enabled"
+                @click="item.enabled ? activeDoc = item.key : null"
               >
                 <span>{{ item.label }}</span>
-                <span class="text-xs opacity-60">当前</span>
+                <span class="text-xs opacity-60">
+                  {{ activeDoc === item.key ? '当前' : item.enabled ? '' : '待添加' }}
+                </span>
               </button>
             </div>
           </aside>
