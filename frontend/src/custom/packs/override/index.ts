@@ -9,7 +9,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/custom/packs/override/views/DocsView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'Docs'
+      title: 'Documentation',
+      titleKey: 'nav.integrationDocs'
     }
   },
   {
@@ -47,6 +48,7 @@ const overridePack: CustomPack = {
     {
       path: '/docs',
       label: 'Documentation',
+      labelKey: 'nav.integrationDocs',
       icon: 'book',
       scope: 'user',
       order: 110
@@ -54,6 +56,7 @@ const overridePack: CustomPack = {
     {
       path: '/docs',
       label: 'Documentation',
+      labelKey: 'nav.integrationDocs',
       icon: 'book',
       scope: 'personal',
       order: 110
