@@ -72,7 +72,7 @@
         </DocsMethodBlock>
 
         <DocsMethodBlock title="Bash 一键脚本">
-          <CopyCommandBlock label="Bash Script" :command="unixScript" />
+          <CopyCommandBlock label="Bash Script" :command="unixPasteScript" />
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
@@ -216,6 +216,12 @@ const unixScript = computed(() => {
     '__SITE_NAME__': escapeBash(siteName.value),
     '__CODEX_BASE_URL__': escapeBash(codexBaseUrl.value)
   })
+})
+
+const unixPasteScript = computed(() => {
+  return `bash <<'__CODEX_SCRIPT__'
+${unixScript.value}
+__CODEX_SCRIPT__`
 })
 
 const manualInstallCommand = computed(() => {
