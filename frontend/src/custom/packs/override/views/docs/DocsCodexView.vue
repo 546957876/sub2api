@@ -5,12 +5,12 @@
         Codex (OpenAI) 配置教程
       </h1>
       <p class="mt-4 max-w-3xl text-base leading-8 text-slate-600 md:text-lg dark:text-white/80">
-        这一页讲的是如何把当前站点接入 Codex。你可以直接使用一键脚本，也可以手动安装并写入 `~/.codex` 配置。
+        大多数情况下，你只需要选好系统，然后复制一键脚本执行就可以了。
       </p>
 
       <div class="mt-5">
         <DocsNoteBox title="提示：">
-          推荐优先使用下方的一键脚本。脚本会帮你写入 `config.toml` 和 `auth.json`，并在缺少 Node.js 或 Codex CLI 时引导安装。
+          推荐优先使用一键脚本。脚本会自动写入 `config.toml` 和 `auth.json`，并在缺少 Node.js 或 Codex CLI 时引导安装。
         </DocsNoteBox>
       </div>
 
@@ -20,42 +20,47 @@
           请先到管理后台的 `设置 -> 站点设置 -> API 端点地址` 填好真实地址，再回来复制脚本或手动配置内容。
         </DocsNoteBox>
       </div>
-    </DocsSection>
 
-    <DocsSection>
-      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">当前接入信息</h2>
-      <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-white/80">
-        <li>1. 当前站点：`{{ siteName }}`</li>
-        <li>2. 当前 Codex 接口地址：`{{ codexBaseUrl }}`</li>
-        <li>3. 如果你只使用 Codex 桌面版 App，可以只写配置文件，不安装 CLI。</li>
-      </ul>
-    </DocsSection>
+      <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-white/8 dark:bg-white/[0.025]">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">快速开始</h2>
+            <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-white/80">
+              1. 先选系统。2. 直接展开下面的推荐方式。3. 复制脚本执行。
+            </p>
+          </div>
 
-    <DocsSection>
-      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">选择系统</h2>
-      <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/80">
-        先选择你当前使用的系统。这个选择会同时影响下面的方式一和方式二。
-      </p>
+          <div class="text-sm leading-7 text-slate-600 dark:text-white/80">
+            <div>当前站点：`{{ siteName }}`</div>
+            <div>接口地址：`{{ codexBaseUrl }}`</div>
+          </div>
+        </div>
 
-      <div class="mt-4 flex flex-wrap gap-2">
-        <button
-          v-for="platform in platforms"
-          :key="platform.key"
-          type="button"
-          class="rounded-full border px-4 py-2 text-sm font-medium transition"
-          :class="activePlatform === platform.key
-            ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950'
-            : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/30 dark:bg-white/[0.10] dark:text-white dark:hover:border-white/40 dark:hover:bg-white/[0.15] dark:hover:text-white'"
-          @click="activePlatform = platform.key"
-        >
-          {{ platform.label }}
-        </button>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button
+            v-for="platform in platforms"
+            :key="platform.key"
+            type="button"
+            class="rounded-full border px-4 py-2 text-sm font-medium transition"
+            :class="activePlatform === platform.key
+              ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950'
+              : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/30 dark:bg-white/[0.10] dark:text-white dark:hover:border-white/40 dark:hover:bg-white/[0.15] dark:hover:text-white'"
+            @click="activePlatform = platform.key"
+          >
+            {{ platform.label }}
+          </button>
+        </div>
+
+        <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-white/80">
+          如果你只使用 Codex 桌面版 App，也可以直接看下面的手动配置。
+        </p>
       </div>
     </DocsSection>
 
     <DocsAccordion
-      title="方式一：一键脚本"
-      description="按系统选择脚本，复制整段内容，粘贴到终端后直接执行。脚本会交互式询问你的 API Key，并根据选择配置 Codex CLI、Codex App 或两者一起使用。"
+      title="推荐方式：一键脚本"
+      description="复制整段脚本到终端执行即可。脚本会交互式询问你的 API Key，并根据选择配置 Codex CLI、Codex App 或两者一起使用。"
+      :default-open="true"
     >
       <div v-if="activePlatform === 'windows'" class="space-y-5">
         <DocsMethodBlock title="执行方式" boxed>
@@ -85,8 +90,8 @@
     </DocsAccordion>
 
     <DocsAccordion
-      title="方式二：手动配置"
-      description="如果你不想执行整段脚本，也可以手动安装 Codex 并写入配置文件。"
+      title="高级 / 手动配置"
+      description="只有在你想自己安装 Codex、自己写配置文件时，再看这一部分。"
     >
       <div class="space-y-5">
         <DocsMethodBlock title="1. 安装 Codex CLI">
@@ -117,24 +122,9 @@
     </DocsAccordion>
 
     <DocsSection>
-      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">补充说明</h2>
-      <div class="mt-6 space-y-5">
-        <DocsMethodBlock title="脚本方式适合什么场景" boxed>
-          <ul class="space-y-2 text-sm leading-7 text-slate-600 dark:text-white/80">
-            <li>1. 本机还没装 Codex CLI，想顺手一起装好。</li>
-            <li>2. 不想自己手动编辑 `config.toml` 和 `auth.json`。</li>
-            <li>3. 需要同时兼容 Codex CLI 和 Codex 桌面版 App。</li>
-          </ul>
-        </DocsMethodBlock>
-
-        <DocsMethodBlock title="手动方式适合什么场景" boxed>
-          <ul class="space-y-2 text-sm leading-7 text-slate-600 dark:text-white/80">
-            <li>1. 想清楚知道每个文件写了什么内容。</li>
-            <li>2. 已经安装好了 Codex，只需要接入当前站点。</li>
-            <li>3. 后续要自己微调 `~/.codex/config.toml` 里的参数。</li>
-          </ul>
-        </DocsMethodBlock>
-      </div>
+      <DocsNoteBox title="怎么选：">
+        大多数用户直接用上面的 `推荐方式：一键脚本` 就够了。只有当你想自己安装 Codex、自己维护 `~/.codex` 文件时，再看 `高级 / 手动配置`。
+      </DocsNoteBox>
     </DocsSection>
   </div>
 </template>
