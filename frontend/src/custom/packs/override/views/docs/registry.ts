@@ -1,6 +1,10 @@
 import type { Component } from 'vue'
 import DocsNodeView from './DocsNodeView.vue'
 import DocsCodexView from './DocsCodexView.vue'
+import DocsClaudeCodeView from './DocsClaudeCodeView.vue'
+import DocsGeminiCliView from './DocsGeminiCliView.vue'
+import DocsOpenClawView from './DocsOpenClawView.vue'
+import DocsHermesView from './DocsHermesView.vue'
 
 export interface DocsRegistryItem {
   key: string
@@ -25,13 +29,25 @@ export const docsRegistry: DocsRegistryItem[] = [
   {
     key: 'claude-code',
     label: 'Claude Code 配置教程',
-    component: DocsNodeView,
-    enabled: false
+    component: DocsClaudeCodeView,
+    enabled: true
   },
   {
     key: 'gemini-cli',
     label: 'Gemini CLI 配置教程',
-    component: DocsNodeView,
-    enabled: false
+    component: DocsGeminiCliView,
+    enabled: true
+  },
+  {
+    key: 'openclaw',
+    label: 'OpenClaw 配置教程',
+    component: DocsOpenClawView,
+    enabled: true
+  },
+  {
+    key: 'hermes',
+    label: 'Hermes 配置教程',
+    component: DocsHermesView,
+    enabled: true
   }
 ]

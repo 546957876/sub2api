@@ -60,7 +60,6 @@
     <DocsAccordion
       title="推荐方式：一键脚本"
       description="复制整段脚本到终端执行即可。脚本会交互式询问你的 API Key，并根据选择配置 Codex CLI、Codex App 或两者一起使用。"
-      :default-open="true"
     >
       <div v-if="activePlatform === 'windows'" class="space-y-5">
         <DocsMethodBlock title="执行方式" boxed>
