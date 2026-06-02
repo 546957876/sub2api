@@ -69,7 +69,7 @@
         </DocsMethodBlock>
 
         <DocsMethodBlock title="PowerShell 一键脚本">
-          <CopyCommandBlock label="PowerShell Script" :command="windowsScript" />
+          <CopyCommandBlock label="PowerShell Script" :command="windowsPasteScript" />
         </DocsMethodBlock>
       </div>
 
@@ -128,7 +128,7 @@ import DocsNoteBox from './components/DocsNoteBox.vue'
 import DocsSection from './components/DocsSection.vue'
 import claudeWindowsTemplate from './assets/claude-code-install.ps1?raw'
 import claudeUnixTemplate from './assets/claude-code-install.sh?raw'
-import { createUnixPasteScript, escapeBash, escapePowerShell, replaceTemplateTokens, useDocsRuntime } from './useDocsRuntime'
+import { createPowerShellPasteScript, createUnixPasteScript, escapeBash, escapePowerShell, replaceTemplateTokens, useDocsRuntime } from './useDocsRuntime'
 
 const {
   activePlatform,
@@ -144,6 +144,8 @@ const windowsScript = computed(() => {
     '__ANTHROPIC_BASE_URL__': anthropicBaseUrl.value
   })
 })
+
+const windowsPasteScript = computed(() => createPowerShellPasteScript(windowsScript.value))
 
 const unixScript = computed(() => {
   return replaceTemplateTokens(claudeUnixTemplate, {

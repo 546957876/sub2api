@@ -49,6 +49,19 @@ ${script}
 __DOCS_SCRIPT__`
 }
 
+export function createPowerShellPasteScript(script: string) {
+  const bytes = new TextEncoder().encode(script)
+  let binary = ''
+  const chunkSize = 0x8000
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize))
+  }
+  const encoded = btoa(binary)
+  return `$__docsB64='${encoded}'
+$__docs=[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($__docsB64))
+& ([ScriptBlock]::Create($__docs))`
+}
+
 export function useDocsRuntime() {
   const activePlatform = ref<PlatformKey>('windows')
   const appStore = useAppStore()

@@ -69,7 +69,7 @@
         </DocsMethodBlock>
 
         <DocsMethodBlock title="PowerShell 一键脚本">
-          <CopyCommandBlock label="PowerShell Script" :command="windowsScript" />
+          <CopyCommandBlock label="PowerShell Script" :command="windowsPasteScript" />
         </DocsMethodBlock>
       </div>
 
@@ -200,12 +200,27 @@ function replaceTemplateTokens(template: string, replacements: Record<string, st
   }, template)
 }
 
+function createPowerShellPasteScript(script: string) {
+  const bytes = new TextEncoder().encode(script)
+  let binary = ''
+  const chunkSize = 0x8000
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize))
+  }
+  const encoded = btoa(binary)
+  return `$__docsB64='${encoded}'
+$__docs=[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($__docsB64))
+& ([ScriptBlock]::Create($__docs))`
+}
+
 const windowsScript = computed(() => {
   return replaceTemplateTokens(windowsScriptTemplate, {
     '__SITE_NAME__': escapePowerShell(siteName.value),
     '__CODEX_BASE_URL__': codexBaseUrl.value
   })
 })
+
+const windowsPasteScript = computed(() => createPowerShellPasteScript(windowsScript.value))
 
 const unixScript = computed(() => {
   return replaceTemplateTokens(unixScriptTemplate, {
@@ -252,6 +267,9 @@ model_reasoning_effort = "xhigh"
 disable_response_storage = true
 network_access = "enabled"
 windows_wsl_setup_acknowledged = true
+model_context_window = 1000000
+model_auto_compact_token_limit = 800000
+effective_context_window_percent = 95
 
 [model_providers.OpenAI]
 name = "OpenAI"
