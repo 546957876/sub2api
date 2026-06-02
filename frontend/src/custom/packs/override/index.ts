@@ -4,6 +4,15 @@ import type { CustomPack } from '@/custom/core/types'
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/docs',
+    name: 'Docs',
+    component: () => import('@/custom/packs/override/views/DocsView.vue'),
+    meta: {
+      requiresAuth: false,
+      title: 'Docs'
+    }
+  },
+  {
     path: '/pricing',
     name: 'Pricing',
     component: () => import('@/custom/packs/override/views/PricingRouteView.vue'),
@@ -34,6 +43,20 @@ const overridePack: CustomPack = {
       icon: 'price-tag',
       scope: 'personal',
       order: 100
+    },
+    {
+      path: '/docs',
+      label: 'Documentation',
+      icon: 'book',
+      scope: 'user',
+      order: 110
+    },
+    {
+      path: '/docs',
+      label: 'Documentation',
+      icon: 'book',
+      scope: 'personal',
+      order: 110
     }
   ],
   pageOverrides: {

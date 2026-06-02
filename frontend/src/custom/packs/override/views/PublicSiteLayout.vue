@@ -12,27 +12,22 @@
           <div class="flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/90 p-1 shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition-colors dark:border-white/8 dark:bg-white/[0.045] dark:shadow-none">
             <router-link
               to="/home"
-              class="rounded-full px-4 py-2 text-sm font-medium transition"
-              :class="isActiveNav('/home') ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950' : 'text-slate-600 hover:text-slate-900 dark:text-white/72 dark:hover:text-white'"
+              :class="desktopNavClass('/home')"
             >
               首页
             </router-link>
             <router-link
               to="/pricing"
-              class="rounded-full px-4 py-2 text-sm font-medium transition"
-              :class="isActiveNav('/pricing') ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950' : 'text-slate-600 hover:text-slate-900 dark:text-white/72 dark:hover:text-white'"
+              :class="desktopNavClass('/pricing')"
             >
               模型价格
             </router-link>
-            <a
-              v-if="docUrl"
-              :href="docUrl"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-white/72 dark:hover:text-white"
+            <router-link
+              to="/docs"
+              :class="desktopNavClass('/docs')"
             >
               接入文档
-            </a>
+            </router-link>
           </div>
         </div>
 
@@ -79,27 +74,22 @@
         <div class="mx-auto flex max-w-[1440px] gap-2 overflow-x-auto">
           <router-link
             to="/home"
-            class="shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition"
-            :class="isActiveNav('/home') ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900 dark:border-white/12 dark:bg-transparent dark:text-white/78 dark:hover:border-white/18 dark:hover:bg-white/[0.04] dark:hover:text-white'"
+            :class="mobileNavClass('/home')"
           >
             首页
           </router-link>
           <router-link
             to="/pricing"
-            class="shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition"
-            :class="isActiveNav('/pricing') ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900 dark:border-white/12 dark:bg-transparent dark:text-white/78 dark:hover:border-white/18 dark:hover:bg-white/[0.04] dark:hover:text-white'"
+            :class="mobileNavClass('/pricing')"
           >
             模型价格
           </router-link>
-          <a
-            v-if="docUrl"
-            :href="docUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="shrink-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/12 dark:bg-transparent dark:text-white/78 dark:hover:border-white/18 dark:hover:bg-white/[0.04] dark:hover:text-white"
+          <router-link
+            to="/docs"
+            :class="mobileNavClass('/docs')"
           >
             接入文档
-          </a>
+          </router-link>
         </div>
       </div>
     </header>
@@ -124,7 +114,6 @@ const route = useRoute()
 const isDark = ref(document.documentElement.classList.contains('dark'))
 
 const siteLogo = computed(() => appStore.cachedPublicSettings?.site_logo || appStore.siteLogo || '')
-const docUrl = computed(() => appStore.cachedPublicSettings?.doc_url || appStore.docUrl || '')
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isAdmin = computed(() => authStore.isAdmin)
 const dashboardPath = computed(() => (isAdmin.value ? '/admin/dashboard' : '/dashboard'))
@@ -142,5 +131,17 @@ function toggleTheme() {
 
 function isActiveNav(path: string) {
   return route.path === path || route.path.startsWith(`${path}/`)
+}
+
+function desktopNavClass(path: string) {
+  return isActiveNav(path)
+    ? 'rounded-full px-4 py-2 text-sm font-medium transition bg-slate-900 text-white dark:bg-white dark:text-slate-950'
+    : 'rounded-full px-4 py-2 text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-white/84 dark:hover:text-white'
+}
+
+function mobileNavClass(path: string) {
+  return isActiveNav(path)
+    ? 'shrink-0 rounded-full border border-slate-900 bg-slate-900 px-4 py-2 text-sm font-medium text-white transition dark:border-white dark:bg-white dark:text-slate-950'
+    : 'shrink-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/16 dark:bg-transparent dark:text-white/84 dark:hover:border-white/24 dark:hover:bg-white/[0.05] dark:hover:text-white'
 }
 </script>

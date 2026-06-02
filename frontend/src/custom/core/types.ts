@@ -24,6 +24,7 @@ export type CustomNavIcon =
   | 'price-tag'
   | 'order'
   | 'order-list'
+  | 'book'
 
 export interface CustomNavEntry {
   path: string

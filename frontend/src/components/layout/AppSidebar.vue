@@ -680,6 +680,7 @@ const customNavIconMap: Record<CustomNavIcon, unknown> = {
   'price-tag': PriceTagIcon,
   order: OrderIcon,
   'order-list': OrderListIcon,
+  book: GlobeIcon,
 }
 
 function mapCustomNavEntry(item: CustomNavEntry): NavItem {
