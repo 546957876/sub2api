@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
 export type CustomNavScope = 'user' | 'personal' | 'admin'
@@ -40,4 +41,5 @@ export interface CustomPack {
   displayName: string
   routes?: RouteRecordRaw[]
   navItems?: CustomNavEntry[]
+  pageOverrides?: Partial<Record<'home', Component>>
 }

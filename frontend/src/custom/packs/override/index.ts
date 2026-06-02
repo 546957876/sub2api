@@ -1,3 +1,4 @@
+import { defineAsyncComponent } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { CustomPack } from '@/custom/core/types'
 
@@ -5,7 +6,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/pricing',
     name: 'Pricing',
-    component: () => import('@/views/public/PricingView.vue'),
+    component: () => import('@/custom/packs/override/views/PricingRouteView.vue'),
     meta: {
       requiresAuth: false,
       title: 'Pricing'
@@ -13,9 +14,9 @@ const routes: RouteRecordRaw[] = [
   }
 ]
 
-const peiqiPack: CustomPack = {
-  id: 'peiqi',
-  displayName: 'Peiqi',
+const overridePack: CustomPack = {
+  id: 'override',
+  displayName: 'Override',
   routes,
   navItems: [
     {
@@ -34,7 +35,10 @@ const peiqiPack: CustomPack = {
       scope: 'personal',
       order: 100
     }
-  ]
+  ],
+  pageOverrides: {
+    home: defineAsyncComponent(() => import('@/custom/packs/override/views/HomeView.vue'))
+  }
 }
 
-export default peiqiPack
+export default overridePack

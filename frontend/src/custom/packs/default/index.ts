@@ -5,6 +5,7 @@ const defaultPack: CustomPack = {
   displayName: 'Default',
   routes: [],
   navItems: [],
+  pageOverrides: {},
 }
 
 export default defaultPack

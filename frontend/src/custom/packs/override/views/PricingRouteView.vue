@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import PricingView from '@/views/PricingView.vue'
 import AppLayout from '@/components/layout/AppLayout.vue'
 import { useAuthStore } from '@/stores/auth'
+import PricingView from './PricingView.vue'
 
 const authStore = useAuthStore()
 const useEmbeddedLayout = computed(() => authStore.isAuthenticated)
