@@ -31,11 +31,13 @@
       </ul>
     </DocsSection>
 
-    <DocsAccordion
-      title="方式一：一键脚本"
-      description="按系统选择脚本，复制整段内容，粘贴到终端后直接执行。脚本会交互式询问你的 API Key，并根据选择配置 Codex CLI、Codex App 或两者一起使用。"
-    >
-      <div class="flex flex-wrap gap-2">
+    <DocsSection>
+      <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">选择系统</h2>
+      <p class="mt-3 text-sm leading-7 text-slate-600 dark:text-white/80">
+        先选择你当前使用的系统。这个选择会同时影响下面的方式一和方式二。
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-2">
         <button
           v-for="platform in platforms"
           :key="platform.key"
@@ -49,8 +51,13 @@
           {{ platform.label }}
         </button>
       </div>
+    </DocsSection>
 
-      <div v-if="activePlatform === 'windows'" class="mt-6 space-y-5">
+    <DocsAccordion
+      title="方式一：一键脚本"
+      description="按系统选择脚本，复制整段内容，粘贴到终端后直接执行。脚本会交互式询问你的 API Key，并根据选择配置 Codex CLI、Codex App 或两者一起使用。"
+    >
+      <div v-if="activePlatform === 'windows'" class="space-y-5">
         <DocsMethodBlock title="执行方式" boxed>
           <p class="text-sm leading-7 text-slate-600 dark:text-white/80">
             打开 PowerShell，把下面整段脚本完整粘贴进去后回车执行。
@@ -62,7 +69,7 @@
         </DocsMethodBlock>
       </div>
 
-      <div v-else class="mt-6 space-y-5">
+      <div v-else class="space-y-5">
         <DocsMethodBlock :title="activePlatform === 'macos' ? '执行方式' : '执行方式'" boxed>
           <p class="text-sm leading-7 text-slate-600 dark:text-white/80">
             {{ activePlatform === 'macos'
