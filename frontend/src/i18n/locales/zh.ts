@@ -388,6 +388,7 @@ export default {
     channelPricing: '渠道定价',
     channelMonitor: '渠道监控',
     channelStatus: '渠道状态',
+    integrationDocs: '接入文档',
     modelPricing: '模型价格',
     riskControl: '风控中心',
   },

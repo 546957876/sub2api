@@ -26,7 +26,7 @@
               to="/docs"
               :class="desktopNavClass('/docs')"
             >
-              接入文档
+              {{ t('nav.integrationDocs') }}
             </router-link>
           </div>
         </div>
@@ -88,7 +88,7 @@
             to="/docs"
             :class="mobileNavClass('/docs')"
           >
-            接入文档
+            {{ t('nav.integrationDocs') }}
           </router-link>
         </div>
       </div>
