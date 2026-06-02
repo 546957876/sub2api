@@ -17,8 +17,8 @@
                 :class="activeDoc === item.key
                   ? 'bg-amber-100 text-amber-900 shadow-[0_10px_24px_rgba(251,191,36,0.12)] dark:bg-[#3a2417] dark:text-white dark:shadow-none'
                   : item.enabled
-                    ? 'bg-slate-50 text-slate-700 hover:bg-slate-100 dark:bg-white/5 dark:text-white/84 dark:hover:bg-white/8'
-                    : 'cursor-not-allowed bg-slate-50/80 text-slate-400 dark:bg-white/[0.035] dark:text-white/38'"
+                    ? 'bg-slate-50 text-slate-700 hover:bg-slate-100 dark:bg-white/[0.10] dark:text-white dark:hover:bg-white/[0.14]'
+                    : 'cursor-not-allowed bg-slate-50/80 text-slate-400 dark:bg-white/[0.06] dark:text-white/70'"
                 :disabled="!item.enabled"
                 @click="item.enabled ? activeDoc = item.key : null"
               >

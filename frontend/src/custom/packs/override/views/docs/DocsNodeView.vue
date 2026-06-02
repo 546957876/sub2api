@@ -32,7 +32,7 @@
             class="rounded-full border px-4 py-2 text-sm font-medium transition"
             :class="activePlatform === platform.key
               ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950'
-              : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/12 dark:bg-white/5 dark:text-white/84 dark:hover:border-white/18 dark:hover:bg-white/8 dark:hover:text-white'"
+              : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/30 dark:bg-white/[0.10] dark:text-white dark:hover:border-white/40 dark:hover:bg-white/[0.15] dark:hover:text-white'"
             @click="activePlatform = platform.key"
           >
             {{ platform.label }}
