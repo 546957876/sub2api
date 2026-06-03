@@ -9,15 +9,16 @@
       </p>
 
       <div class="mt-5">
-        <DocsNoteBox title="提示：">
-          推荐优先使用一键脚本。脚本会自动写入 `config.toml` 和 `auth.json`，并在缺少 Node.js 或 Codex CLI 时引导安装。
+        <DocsNoteBox title="推荐优先使用一键脚本" tone="accent">
+          脚本会自动写入 <code class="docs-inline-code">config.toml</code> 和 <code class="docs-inline-code">auth.json</code>，
+          并在缺少 Node.js 或 Codex CLI 时引导安装。
         </DocsNoteBox>
       </div>
 
       <div v-if="!hasConfiguredApiBaseUrl" class="mt-5">
-        <DocsNoteBox title="请先配置 API 端点：">
-          当前站点还没有配置公开 `API 端点`，所以这里暂时只能显示占位地址。
-          请先到管理后台的 `设置 -> 站点设置 -> API 端点地址` 填好真实地址，再回来复制脚本或手动配置内容。
+        <DocsNoteBox title="请先配置 API 端点" tone="warning">
+          当前站点还没有配置公开 <DocsTag tone="warning" size="xs">API 端点</DocsTag>，所以这里暂时只能显示占位地址。
+          请先到管理后台的 <code class="docs-inline-code">设置 -> 站点设置 -> API 端点地址</code> 填好真实地址，再回来复制脚本或手动配置内容。
         </DocsNoteBox>
       </div>
 
@@ -30,9 +31,15 @@
             </p>
           </div>
 
-          <div class="docs-copy-dense">
-            <div>当前站点：`{{ siteName }}`</div>
-            <div>接口地址：`{{ codexBaseUrl }}`</div>
+          <div class="docs-copy-dense space-y-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <DocsTag size="xs">当前站点</DocsTag>
+              <code class="docs-inline-code">{{ siteName }}</code>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <DocsTag size="xs">接口地址</DocsTag>
+              <code class="docs-inline-code">{{ codexBaseUrl }}</code>
+            </div>
           </div>
         </div>
 
@@ -58,6 +65,8 @@
     </DocsSection>
 
     <DocsAccordion
+      badge="推荐方式"
+      badge-tone="accent"
       title="推荐方式：一键脚本"
       description="复制整段脚本到终端执行即可。脚本会交互式询问你的 API Key，并根据选择配置 Codex CLI、Codex App 或两者一起使用。"
     >
@@ -69,12 +78,16 @@
         </DocsMethodBlock>
 
         <DocsMethodBlock title="PowerShell 一键脚本">
-          <CopyCommandBlock label="PowerShell Script" :command="windowsPasteScript" />
+          <DocsCodeBlock
+            label="PowerShell Script"
+            :command="windowsPasteScript"
+            hint="长脚本会在框内滚动，不会继续把整页拉长"
+          />
         </DocsMethodBlock>
       </div>
 
       <div v-else class="space-y-5">
-        <DocsMethodBlock :title="activePlatform === 'macos' ? '执行方式' : '执行方式'" boxed>
+        <DocsMethodBlock title="执行方式" boxed>
           <p>
             {{ activePlatform === 'macos'
               ? '打开 Terminal / iTerm，把下面整段脚本完整粘贴进去后回车执行。'
@@ -83,135 +96,89 @@
         </DocsMethodBlock>
 
         <DocsMethodBlock title="Bash 一键脚本">
-          <CopyCommandBlock label="Bash Script" :command="unixPasteScript" />
+          <DocsCodeBlock
+            label="Bash Script"
+            :command="unixPasteScript"
+            hint="长脚本会在框内滚动，不会继续把整页拉长"
+          />
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
 
     <DocsAccordion
+      badge="手动配置"
+      badge-tone="neutral"
       title="高级 / 手动配置"
       description="只有在你想自己安装 Codex、自己写配置文件时，再看这一部分。"
     >
       <div class="space-y-5">
         <DocsMethodBlock title="1. 安装 Codex CLI">
-          <CopyCommandBlock :label="manualInstallLabel" :command="manualInstallCommand" />
+          <DocsCodeBlock :label="manualInstallLabel" :command="manualInstallCommand" />
         </DocsMethodBlock>
 
         <DocsMethodBlock title="2. 创建配置目录" boxed>
-          <p>
-            Windows 配置目录：`%userprofile%\.codex`
-          </p>
-          <p>
-            macOS / Linux 配置目录：`~/.codex`
-          </p>
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <DocsTag size="xs">Windows 配置目录</DocsTag>
+              <code class="docs-inline-code">%userprofile%\.codex</code>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <DocsTag size="xs">macOS / Linux 配置目录</DocsTag>
+              <code class="docs-inline-code">~/.codex</code>
+            </div>
+          </div>
         </DocsMethodBlock>
 
         <DocsMethodBlock title="3. 写入 config.toml">
-          <CopyCommandBlock label="config.toml" :command="configTomlContent" />
+          <DocsCodeBlock label="config.toml" :command="configTomlContent" />
         </DocsMethodBlock>
 
         <DocsMethodBlock title="4. 写入 auth.json">
-          <CopyCommandBlock label="auth.json" :command="authJsonContent" />
+          <DocsCodeBlock label="auth.json" :command="authJsonContent" />
         </DocsMethodBlock>
 
         <DocsMethodBlock title="5. 启动 Codex">
-          <CopyCommandBlock label="Run Codex" :command="runCodexCommand" />
+          <DocsCodeBlock label="Run Codex" :command="runCodexCommand" />
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
 
     <DocsSection>
-      <DocsNoteBox title="怎么选：">
-        大多数用户直接用上面的 `推荐方式：一键脚本` 就够了。只有当你想自己安装 Codex、自己维护 `~/.codex` 文件时，再看 `高级 / 手动配置`。
+      <DocsNoteBox title="怎么选">
+        大多数用户直接用上面的 <DocsTag tone="accent" size="xs">推荐方式：一键脚本</DocsTag> 就够了。
+        只有当你想自己安装 Codex、自己维护 <code class="docs-inline-code">~/.codex</code> 文件时，再看
+        <DocsTag size="xs">高级 / 手动配置</DocsTag>。
       </DocsNoteBox>
     </DocsSection>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { useAppStore } from '@/stores'
-import CopyCommandBlock from '../CopyCommandBlock.vue'
+import { computed } from 'vue'
 import DocsAccordion from './components/DocsAccordion.vue'
+import DocsCodeBlock from './components/DocsCodeBlock.vue'
 import DocsMethodBlock from './components/DocsMethodBlock.vue'
 import DocsNoteBox from './components/DocsNoteBox.vue'
 import DocsSection from './components/DocsSection.vue'
+import DocsTag from './components/DocsTag.vue'
 import windowsScriptTemplate from './assets/codex-install.ps1?raw'
 import unixScriptTemplate from './assets/codex-install.sh?raw'
+import {
+  createPowerShellPasteScript,
+  createUnixPasteScript,
+  escapeBash,
+  escapePowerShell,
+  replaceTemplateTokens,
+  useDocsRuntime
+} from './useDocsRuntime'
 
-type PlatformKey = 'windows' | 'macos' | 'linux'
-
-const platforms = [
-  { key: 'windows', label: 'Windows' },
-  { key: 'macos', label: 'macOS' },
-  { key: 'linux', label: 'Linux' },
-] as const
-
-const activePlatform = ref<PlatformKey>('windows')
-const appStore = useAppStore()
-
-onMounted(() => {
-  if (!appStore.publicSettingsLoaded) {
-    void appStore.fetchPublicSettings()
-  }
-})
-
-const siteName = computed(() => {
-  const current = appStore.cachedPublicSettings?.site_name || appStore.siteName || 'Sub2API'
-  return current.trim() || 'Sub2API'
-})
-
-const configuredApiBaseUrl = computed(() => {
-  const raw = appStore.cachedPublicSettings?.api_base_url || appStore.apiBaseUrl || ''
-  return raw.trim()
-})
-
-function ensureV1(value: string) {
-  const trimmed = value.replace(/\/+$/, '')
-  return trimmed.endsWith('/v1') ? trimmed : `${trimmed}/v1`
-}
-
-const hasConfiguredApiBaseUrl = computed(() => configuredApiBaseUrl.value.length > 0)
-
-const codexBaseUrl = computed(() => {
-  if (!hasConfiguredApiBaseUrl.value) {
-    return 'https://your-api-endpoint.example.com/v1'
-  }
-
-  const baseRoot = configuredApiBaseUrl.value.replace(/\/v1\/?$/, '').replace(/\/+$/, '')
-  return ensureV1(baseRoot)
-})
-
-function escapePowerShell(value: string) {
-  return value.replace(/`/g, '``').replace(/"/g, '`"')
-}
-
-function escapeBash(value: string) {
-  return value
-    .replace(/\\/g, '\\\\')
-    .replace(/"/g, '\\"')
-    .replace(/\$/g, '\\$')
-    .replace(/`/g, '\\`')
-}
-
-function replaceTemplateTokens(template: string, replacements: Record<string, string>) {
-  return Object.entries(replacements).reduce((result, [token, value]) => {
-    return result.split(token).join(value)
-  }, template)
-}
-
-function createPowerShellPasteScript(script: string) {
-  const bytes = new TextEncoder().encode(script)
-  let binary = ''
-  const chunkSize = 0x8000
-  for (let index = 0; index < bytes.length; index += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize))
-  }
-  const encoded = btoa(binary)
-  return `$__docsB64='${encoded}'
-$__docs=[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($__docsB64))
-& ([ScriptBlock]::Create($__docs))`
-}
+const {
+  activePlatform,
+  platforms,
+  siteName,
+  hasConfiguredApiBaseUrl,
+  openAiBaseUrl: codexBaseUrl
+} = useDocsRuntime()
 
 const windowsScript = computed(() => {
   return replaceTemplateTokens(windowsScriptTemplate, {
@@ -229,11 +196,7 @@ const unixScript = computed(() => {
   })
 })
 
-const unixPasteScript = computed(() => {
-  return `bash <<'__CODEX_SCRIPT__'
-${unixScript.value}
-__CODEX_SCRIPT__`
-})
+const unixPasteScript = computed(() => createUnixPasteScript(unixScript.value))
 
 const manualInstallCommand = computed(() => {
   switch (activePlatform.value) {

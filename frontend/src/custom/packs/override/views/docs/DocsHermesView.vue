@@ -5,19 +5,19 @@
         Hermes 配置教程
       </h1>
       <p class="docs-page-intro mt-4 max-w-3xl">
-        这页主要把 API Key、基地址和模型写进 `~/.hermes/config.yaml`。
+        这页主要把 API Key、基地址和模型写进 <code class="docs-inline-code">~/.hermes/config.yaml</code>。
       </p>
 
       <div class="mt-5">
-        <DocsNoteBox title="提示：">
-          一键脚本只负责写配置，不负责安装客户端。合并现有 `config.yaml` 时需要本机有可用的 Python + PyYAML 环境。
+        <DocsNoteBox title="脚本只负责写配置" tone="accent">
+          一键脚本不负责安装客户端。合并现有 <code class="docs-inline-code">config.yaml</code> 时需要本机有可用的 Python + PyYAML 环境。
         </DocsNoteBox>
       </div>
 
       <div v-if="!hasConfiguredApiBaseUrl" class="mt-5">
-        <DocsNoteBox title="请先配置 API 端点：">
-          当前站点还没有配置公开 `API 端点`，所以这里暂时只能显示占位地址。
-          请先到管理后台的 `设置 -> 站点设置 -> API 端点地址` 填好真实地址，再回来复制脚本或手动配置内容。
+        <DocsNoteBox title="请先配置 API 端点" tone="warning">
+          当前站点还没有配置公开 <DocsTag tone="warning" size="xs">API 端点</DocsTag>，所以这里暂时只能显示占位地址。
+          请先到管理后台的 <code class="docs-inline-code">设置 -> 站点设置 -> API 端点地址</code> 填好真实地址，再回来复制脚本或手动配置内容。
         </DocsNoteBox>
       </div>
 
@@ -30,9 +30,15 @@
             </p>
           </div>
 
-          <div class="docs-copy-dense">
-            <div>Claude 接口：`{{ anthropicBaseUrl }}`</div>
-            <div>Codex 接口：`{{ openAiBaseUrl }}`</div>
+          <div class="docs-copy-dense space-y-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <DocsTag size="xs">Claude 接口</DocsTag>
+              <code class="docs-inline-code">{{ anthropicBaseUrl }}</code>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <DocsTag size="xs">Codex 接口</DocsTag>
+              <code class="docs-inline-code">{{ openAiBaseUrl }}</code>
+            </div>
           </div>
         </div>
 
@@ -54,12 +60,15 @@
     </DocsSection>
 
     <DocsAccordion
+      badge="推荐方式"
+      badge-tone="accent"
       title="推荐方式：一键配置（macOS / Linux）"
-      description="脚本会让你选择 Claude / Codex、自动读取模型列表，并把配置安全合并进 `~/.hermes/config.yaml`。"
+      description="脚本会让你选择 Claude / Codex、自动读取模型列表，并把配置安全合并进 ~/.hermes/config.yaml。"
     >
       <div v-if="activePlatform === 'windows'" class="space-y-5">
-        <DocsNoteBox title="当前没有 Windows 一键脚本：">
-          当前只提供 macOS / Linux 的一键配置脚本。Windows 用户建议优先使用 WSL，或者直接看下面的 `高级 / 手动配置`。
+        <DocsNoteBox title="当前没有 Windows 一键脚本" tone="warning">
+          当前只提供 macOS / Linux 的一键配置脚本。Windows 用户建议优先使用 WSL，或者直接看下面的
+          <DocsTag size="xs">高级 / 手动配置</DocsTag>。
         </DocsNoteBox>
       </div>
 
@@ -73,39 +82,46 @@
         </DocsMethodBlock>
 
         <DocsMethodBlock title="Bash 一键脚本">
-          <CopyCommandBlock label="Bash Script" :command="unixPasteScript" />
+          <DocsCodeBlock
+            label="Bash Script"
+            :command="unixPasteScript"
+            hint="长脚本会在框内滚动，不会继续把整页拉长"
+          />
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
 
     <DocsAccordion
+      badge="手动配置"
       title="高级 / 手动配置"
-      description="适合已经安装好 Hermes，只想自己写 `config.yaml` 的情况。"
+      description="适合已经安装好 Hermes，只想自己写 config.yaml 的情况。"
     >
       <div class="space-y-5">
         <DocsMethodBlock title="1. 先确认 Hermes 已经安装" boxed>
           <p>
-            这一页不内置 Hermes 安装脚本。请先按 Hermes 自己的安装方式装好客户端，并确认终端里可以直接运行 `hermes`。
+            这一页不内置 Hermes 安装脚本。请先按 Hermes 自己的安装方式装好客户端，并确认终端里可以直接运行
+            <code class="docs-inline-code">hermes</code>。
           </p>
         </DocsMethodBlock>
 
         <DocsMethodBlock title="2. Claude / Anthropic 示例配置">
-          <CopyCommandBlock label="config.yaml" :command="anthropicConfig" />
+          <DocsCodeBlock label="config.yaml" :command="anthropicConfig" />
         </DocsMethodBlock>
 
         <DocsMethodBlock title="3. OpenAI / Codex 示例配置">
-          <CopyCommandBlock label="config.yaml" :command="openAiConfig" />
+          <DocsCodeBlock label="config.yaml" :command="openAiConfig" />
         </DocsMethodBlock>
 
         <DocsMethodBlock title="4. 启动 Hermes">
-          <CopyCommandBlock label="Run Hermes" command="hermes" />
+          <DocsCodeBlock label="Run Hermes" command="hermes" />
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
 
     <DocsSection>
-      <DocsNoteBox title="怎么选：">
-        如果你已经装好了 Hermes，优先用脚本；如果你更习惯自己维护 `config.yaml`，或者你在 Windows 上使用，就直接看 `高级 / 手动配置`。
+      <DocsNoteBox title="怎么选">
+        如果你已经装好了 Hermes，优先用脚本；如果你更习惯自己维护 <code class="docs-inline-code">config.yaml</code>，
+        或者你在 Windows 上使用，就直接看 <DocsTag size="xs">高级 / 手动配置</DocsTag>。
       </DocsNoteBox>
     </DocsSection>
   </div>
@@ -113,11 +129,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import CopyCommandBlock from '../CopyCommandBlock.vue'
 import DocsAccordion from './components/DocsAccordion.vue'
+import DocsCodeBlock from './components/DocsCodeBlock.vue'
 import DocsMethodBlock from './components/DocsMethodBlock.vue'
 import DocsNoteBox from './components/DocsNoteBox.vue'
 import DocsSection from './components/DocsSection.vue'
+import DocsTag from './components/DocsTag.vue'
 import hermesTemplate from './assets/hermes-install.sh?raw'
 import { createUnixPasteScript, escapeBash, replaceTemplateTokens, useDocsRuntime } from './useDocsRuntime'
 

@@ -5,6 +5,13 @@
   >
     <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 [&::-webkit-details-marker]:hidden">
       <div>
+        <DocsTag
+          v-if="badge"
+          :tone="badgeTone"
+          class="mb-3"
+        >
+          {{ badge }}
+        </DocsTag>
         <h2 class="docs-heading">{{ title }}</h2>
         <p v-if="description" class="docs-copy-dense mt-2 max-w-3xl">
           {{ description }}
@@ -29,12 +36,18 @@
 </template>
 
 <script setup lang="ts">
+import DocsTag from './DocsTag.vue'
+
 withDefaults(defineProps<{
   title: string
   description?: string
   defaultOpen?: boolean
+  badge?: string
+  badgeTone?: 'neutral' | 'accent' | 'warning' | 'dark'
 }>(), {
   description: '',
-  defaultOpen: false
+  defaultOpen: false,
+  badge: '',
+  badgeTone: 'neutral'
 })
 </script>

@@ -21,8 +21,8 @@
                 推荐路径
               </p>
               <ol class="docs-text-body mt-4 space-y-3 text-sm leading-7">
-                <li><span class="docs-text-strong font-semibold">1.</span> 先装 `Node.js`</li>
-                <li><span class="docs-text-strong font-semibold">2.</span> 多工具用户优先用 `CC Switch`</li>
+                <li><span class="docs-text-strong font-semibold">1.</span> 先装 <code class="docs-inline-code">Node.js</code></li>
+                <li><span class="docs-text-strong font-semibold">2.</span> 多工具用户优先用 <DocsTag size="xs">CC Switch</DocsTag></li>
                 <li><span class="docs-text-strong font-semibold">3.</span> 单一工具直接选对应教程</li>
               </ol>
             </div>
@@ -58,12 +58,13 @@
                       <div>
                         <div class="flex items-center gap-2">
                           <span class="text-sm font-semibold">{{ item.label }}</span>
-                          <span
+                          <DocsTag
                             v-if="item.recommended"
-                            class="rounded-full border border-current/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] opacity-85"
+                            tone="accent"
+                            size="xs"
                           >
                             推荐
-                          </span>
+                          </DocsTag>
                         </div>
                         <p
                           class="mt-1 text-xs leading-6"
@@ -72,12 +73,22 @@
                           {{ item.summary }}
                         </p>
                       </div>
-                      <span
-                        class="mt-0.5 text-[11px] font-medium uppercase tracking-[0.18em]"
-                        :class="activeDoc === item.key ? 'docs-nav-status-active' : item.enabled ? 'docs-text-faint' : 'docs-nav-status-disabled'"
+                      <DocsTag
+                        v-if="activeDoc === item.key"
+                        tone="dark"
+                        size="xs"
+                        class="mt-0.5"
                       >
-                        {{ activeDoc === item.key ? '当前' : item.enabled ? '' : '待添加' }}
-                      </span>
+                        当前
+                      </DocsTag>
+                      <DocsTag
+                        v-else-if="!item.enabled"
+                        tone="warning"
+                        size="xs"
+                        class="mt-0.5"
+                      >
+                        待添加
+                      </DocsTag>
                     </div>
                   </button>
                 </div>
@@ -87,18 +98,19 @@
 
           <div class="min-w-0">
             <div class="mb-6 flex flex-wrap items-center gap-2 border-b border-slate-200/80 pb-5 dark:border-white/10">
-              <span class="docs-chip-text rounded-full border border-slate-200 bg-white/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] dark:border-white/14 dark:bg-white/[0.08]">
+              <DocsTag tone="neutral" size="xs">
                 {{ currentDocGroupLabel }}
-              </span>
-              <span
+              </DocsTag>
+              <DocsTag
                 v-if="currentDoc.recommended"
-                class="docs-chip-accent rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em]"
+                tone="accent"
+                size="xs"
               >
-                Recommended
-              </span>
-              <span class="docs-chip-text rounded-full border border-slate-200 bg-white/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] dark:border-white/14 dark:bg-white/[0.08]">
+                推荐路线
+              </DocsTag>
+              <DocsTag tone="neutral" size="xs">
                 直接复制可用配置
-              </span>
+              </DocsTag>
             </div>
 
             <article class="max-w-5xl">
@@ -114,6 +126,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { docsRegistry } from './docs/registry'
+import DocsTag from './docs/components/DocsTag.vue'
 import PublicSiteLayout from './PublicSiteLayout.vue'
 import './docs/docs-theme.css'
 
