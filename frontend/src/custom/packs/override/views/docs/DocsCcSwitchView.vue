@@ -9,49 +9,11 @@
         它可以帮你集中管理 provider、快速切换线路，也能减少反复手改配置文件的麻烦。
       </p>
 
-      <div class="mt-5">
-        <DocsNoteBox title="它适合谁">
-          如果你经常在多个 AI CLI / 桌面工具之间切换，或者希望把 API Key、provider、MCP / Skills 一起管理，
-          那么 CC Switch 通常会比手动改环境变量更省心。
-        </DocsNoteBox>
-      </div>
-
       <div v-if="!hasConfiguredApiBaseUrl" class="mt-5">
         <DocsNoteBox title="请先配置 API 端点" tone="warning">
           当前站点还没有配置公开 <DocsTag tone="warning" size="xs">API 端点</DocsTag>，所以这里暂时只能显示占位地址。
           请先到管理后台的 <code class="docs-inline-code">设置 -> 站点设置 -> API 端点地址</code> 填好真实地址，再回来照着添加 provider。
         </DocsNoteBox>
-      </div>
-
-      <div class="mt-8 grid gap-4 border-y border-slate-200/80 py-5 dark:border-white/10 lg:grid-cols-[1.3fr_1fr]">
-        <div>
-          <p class="docs-kicker text-[11px] font-semibold uppercase tracking-[0.22em]">
-            推荐路径
-          </p>
-          <p class="docs-text-body mt-3 text-sm leading-7">
-            先安装 <DocsTag size="xs">CC Switch</DocsTag>，再新增 provider，最后把本站 API Key 和对应基地址填进去。第一次使用时，
-            不要一开始就做复杂整合，先单工具接通最稳。
-          </p>
-        </div>
-
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-          <a
-            href="https://ccswitch.io"
-            target="_blank"
-            rel="noreferrer"
-            class="docs-link-card rounded-2xl px-4 py-3 text-sm font-medium transition"
-          >
-            官方网站：ccswitch.io
-          </a>
-          <a
-            href="https://github.com/farion1231/cc-switch/releases"
-            target="_blank"
-            rel="noreferrer"
-            class="docs-link-card rounded-2xl px-4 py-3 text-sm font-medium transition"
-          >
-            GitHub Releases 下载页
-          </a>
-        </div>
       </div>
     </DocsSection>
 
@@ -68,6 +30,22 @@
 
         <div class="docs-surface-muted p-4">
           <div class="docs-text-body space-y-3 text-sm leading-7">
+            <a
+              href="https://ccswitch.io"
+              target="_blank"
+              rel="noreferrer"
+              class="docs-link-card block rounded-2xl px-4 py-3 text-sm font-medium transition"
+            >
+              官方网站：ccswitch.io
+            </a>
+            <a
+              href="https://github.com/farion1231/cc-switch/releases"
+              target="_blank"
+              rel="noreferrer"
+              class="docs-link-card block rounded-2xl px-4 py-3 text-sm font-medium transition"
+            >
+              GitHub Releases 下载页
+            </a>
             <div class="flex flex-wrap items-center gap-2">
               <DocsTag size="xs">当前站点</DocsTag>
               <code class="docs-inline-code">{{ siteName }}</code>
@@ -83,8 +61,8 @@
 
     <DocsAccordion
       badge="地址速查"
-      title="三组地址，先直接收好"
-      description="如果你只是想先填对地址，这里是最快可用的三组值。先复制，再回 CC Switch 创建 provider。"
+      title="常用地址"
+      description="先复制这里的地址，再回 CC Switch 填写。"
       default-open
     >
       <div class="grid gap-5 lg:grid-cols-3">
@@ -114,8 +92,8 @@
     <DocsAccordion
       badge="推荐流程"
       badge-tone="accent"
-      title="默认配置流程"
-      description="第一次使用时，优先按单工具分别创建 provider，会比一开始就做复杂合并配置更稳。"
+      title="配置步骤"
+      description="第一次使用时，优先按单工具分别创建 provider。"
     >
       <div class="space-y-5">
         <DocsMethodBlock title="1. 下载并安装 CC Switch" boxed>
@@ -175,13 +153,6 @@
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
-
-    <DocsSection>
-      <DocsNoteBox title="怎么选">
-        如果你只用单一工具，比如只用 Codex 或只用 Claude Code，那么直接看对应教程会更简单。<DocsTag size="xs">CC Switch</DocsTag>
-        更适合“多工具、多账号、多线路切换”的用户。更稳的做法是先按单工具各自接通一次，再回头整理成统一方案。
-      </DocsNoteBox>
-    </DocsSection>
   </div>
 </template>
 

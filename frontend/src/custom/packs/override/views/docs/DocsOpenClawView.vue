@@ -22,24 +22,11 @@
       </div>
 
       <div class="docs-surface-muted mt-6 p-5">
-        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 class="docs-heading">快速开始</h2>
-            <p class="docs-copy-dense mt-2">
-              1. 先选系统。2. 能用脚本就先走脚本。3. 脚本里再选 Claude 或 Codex。
-            </p>
-          </div>
-
-          <div class="docs-copy-dense space-y-2">
-            <div class="flex flex-wrap items-center gap-2">
-              <DocsTag size="xs">Claude 接口</DocsTag>
-              <code class="docs-inline-code">{{ anthropicBaseUrl }}</code>
-            </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <DocsTag size="xs">Codex 接口</DocsTag>
-              <code class="docs-inline-code">{{ openAiBaseUrl }}</code>
-            </div>
-          </div>
+        <div>
+          <h2 class="docs-heading">快速开始</h2>
+          <p class="docs-copy-dense mt-2">
+            1. 先选系统。2. 能用脚本就先走脚本。3. 脚本里再选 Claude 或 Codex。
+          </p>
         </div>
 
         <div class="mt-4 flex flex-wrap gap-2">
@@ -62,8 +49,9 @@
     <DocsAccordion
       badge="推荐方式"
       badge-tone="accent"
-      title="推荐方式：一键配置（macOS / Linux）"
-      description="脚本会让你选择 Claude / Codex、自动读取模型列表，并把配置写进 ~/.openclaw/config.yml。"
+      title="一键配置（macOS / Linux）"
+      description="脚本会让你选择 Claude / Codex，并把配置写进 ~/.openclaw/config.yml。"
+      default-open
     >
       <div v-if="activePlatform === 'windows'" class="space-y-5">
         <DocsNoteBox title="当前没有 Windows 一键脚本" tone="warning">
@@ -85,7 +73,6 @@
           <DocsCodeBlock
             label="Bash Script"
             :command="unixPasteScript"
-            hint="长脚本会在框内滚动，不会继续把整页拉长"
           />
         </DocsMethodBlock>
       </div>
@@ -93,8 +80,8 @@
 
     <DocsAccordion
       badge="手动配置"
-      title="高级 / 手动配置"
-      description="适合已经安装好 OpenClaw，只想自己写 config.yml 的情况。"
+      title="手动配置"
+      description="已经安装好 OpenClaw、想自己写 config.yml 时再看。"
     >
       <div class="space-y-5">
         <DocsMethodBlock title="1. 安装 OpenClaw">
@@ -114,13 +101,6 @@
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
-
-    <DocsSection>
-      <DocsNoteBox title="怎么选">
-        如果你已经装好了 OpenClaw，优先用脚本；如果你想自己维护 <code class="docs-inline-code">config.yml</code>，
-        就直接看 <DocsTag size="xs">高级 / 手动配置</DocsTag>。
-      </DocsNoteBox>
-    </DocsSection>
   </div>
 </template>
 

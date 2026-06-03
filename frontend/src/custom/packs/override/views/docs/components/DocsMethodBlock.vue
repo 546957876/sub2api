@@ -1,7 +1,7 @@
 <template>
   <div :class="boxed ? 'docs-surface-muted p-4' : ''">
     <h3 class="docs-method-title">{{ title }}</h3>
-    <div class="docs-copy mt-3">
+    <div class="docs-copy mt-2.5">
       <slot />
     </div>
   </div>

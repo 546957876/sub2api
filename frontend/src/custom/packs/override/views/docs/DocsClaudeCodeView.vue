@@ -8,12 +8,6 @@
         选好系统后，直接复制一键脚本执行即可。
       </p>
 
-      <div class="mt-5">
-        <DocsNoteBox title="推荐优先使用一键脚本" tone="accent">
-          脚本会自动写入环境变量，并在缺少 Node.js 或 Claude Code 时引导安装。
-        </DocsNoteBox>
-      </div>
-
       <div v-if="!hasConfiguredApiBaseUrl" class="mt-5">
         <DocsNoteBox title="请先配置 API 端点" tone="warning">
           当前站点还没有配置公开 <DocsTag tone="warning" size="xs">API 端点</DocsTag>，所以这里暂时只能显示占位地址。
@@ -22,24 +16,11 @@
       </div>
 
       <div class="docs-surface-muted mt-6 p-5">
-        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 class="docs-heading">快速开始</h2>
-            <p class="docs-copy-dense mt-2">
-              1. 先选系统。2. 复制脚本。3. 执行。
-            </p>
-          </div>
-
-          <div class="docs-copy-dense space-y-2">
-            <div class="flex flex-wrap items-center gap-2">
-              <DocsTag size="xs">当前站点</DocsTag>
-              <code class="docs-inline-code">{{ siteName }}</code>
-            </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <DocsTag size="xs">Claude 接口</DocsTag>
-              <code class="docs-inline-code">{{ anthropicBaseUrl }}</code>
-            </div>
-          </div>
+        <div>
+          <h2 class="docs-heading">快速开始</h2>
+          <p class="docs-copy-dense mt-2">
+            1. 先选系统。2. 复制下面的一键脚本。3. 粘贴到终端执行。
+          </p>
         </div>
 
         <div class="mt-4 flex flex-wrap gap-2">
@@ -66,8 +47,9 @@
     <DocsAccordion
       badge="推荐方式"
       badge-tone="accent"
-      title="推荐方式：一键脚本"
-      description="复制整段脚本到终端执行即可。脚本会交互式询问你的 API Key，并根据情况配置或安装 Claude Code。"
+      title="一键脚本"
+      description="复制整段脚本到终端执行即可。脚本会询问 API Key，并完成 Claude Code 配置。"
+      default-open
     >
       <div v-if="activePlatform === 'windows'" class="space-y-5">
         <DocsMethodBlock title="执行方式" boxed>
@@ -80,7 +62,6 @@
           <DocsCodeBlock
             label="PowerShell Script"
             :command="windowsPasteScript"
-            hint="长脚本会在框内滚动，不会继续把整页拉长"
           />
         </DocsMethodBlock>
       </div>
@@ -98,7 +79,6 @@
           <DocsCodeBlock
             label="Bash Script"
             :command="unixPasteScript"
-            hint="长脚本会在框内滚动，不会继续把整页拉长"
           />
         </DocsMethodBlock>
       </div>
@@ -107,8 +87,8 @@
     <DocsAccordion
       badge="手动配置"
       badge-tone="neutral"
-      title="高级 / 手动配置"
-      description="只有在你想自己安装 Claude Code、自己写环境变量时，再看这一部分。"
+      title="手动配置"
+      description="你想自己安装 Claude Code、自己写环境变量时，再看这一部分。"
     >
       <div class="space-y-5">
         <DocsMethodBlock title="1. 安装 Claude Code">
@@ -128,14 +108,6 @@
         </DocsMethodBlock>
       </div>
     </DocsAccordion>
-
-    <DocsSection>
-      <DocsNoteBox title="怎么选">
-        大多数用户直接用 <DocsTag tone="accent" size="xs">推荐方式：一键脚本</DocsTag> 就够了。
-        只有在你想自己维护环境变量或 <code class="docs-inline-code">~/.claude/settings.json</code> 时，再看
-        <DocsTag size="xs">高级 / 手动配置</DocsTag>。
-      </DocsNoteBox>
-    </DocsSection>
   </div>
 </template>
 

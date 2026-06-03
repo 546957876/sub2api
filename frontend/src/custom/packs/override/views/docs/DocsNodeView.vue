@@ -8,12 +8,6 @@
         在 Windows、macOS、Linux 安装 Node.js LTS，并验证 <code class="docs-inline-code">node</code> /
         <code class="docs-inline-code">npm</code> 命令可用。
       </p>
-
-      <div class="mt-5">
-        <DocsNoteBox title="先准备好 Node.js 运行环境" tone="accent">
-          后续的 Claude Code、Gemini CLI、Codex 等接入方式都依赖 Node.js 运行环境。建议先完成本页，再继续其他文档。
-        </DocsNoteBox>
-      </div>
     </DocsSection>
 
     <DocsSection>
@@ -108,7 +102,6 @@
 import { ref } from 'vue'
 import DocsCodeBlock from './components/DocsCodeBlock.vue'
 import DocsMethodBlock from './components/DocsMethodBlock.vue'
-import DocsNoteBox from './components/DocsNoteBox.vue'
 import DocsSection from './components/DocsSection.vue'
 
 type PlatformKey = 'windows' | 'macos' | 'linux'

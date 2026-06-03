@@ -6,30 +6,17 @@
 
       <section class="relative z-10 mx-auto max-w-[1480px] px-5 py-8 lg:px-8 lg:py-12">
         <div class="border-b border-slate-200/80 pb-8 dark:border-white/10">
-          <div class="grid gap-8 xl:grid-cols-[minmax(0,1.2fr)_320px] xl:items-end">
-            <div class="max-w-4xl">
-              <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-700 dark:text-cyan-300/82">
-                Integration Workspace
-              </p>
-              <h1 class="docs-page-title mt-4">
-                接入文档
-              </h1>
-            </div>
-
-            <div class="docs-shell-card p-5">
-              <p class="docs-kicker text-[11px] font-semibold uppercase tracking-[0.24em]">
-                推荐路径
-              </p>
-              <ol class="docs-text-body mt-4 space-y-3 text-sm leading-7">
-                <li><span class="docs-text-strong font-semibold">1.</span> 先装 <code class="docs-inline-code">Node.js</code></li>
-                <li><span class="docs-text-strong font-semibold">2.</span> 多工具用户优先用 <DocsTag size="xs">CC Switch</DocsTag></li>
-                <li><span class="docs-text-strong font-semibold">3.</span> 单一工具直接选对应教程</li>
-              </ol>
-            </div>
+          <div class="max-w-4xl">
+            <h1 class="docs-page-title">
+              接入文档
+            </h1>
+            <p class="docs-page-intro mt-5 max-w-2xl">
+              选择左侧教程查看可复制命令和配置示例。页面优先保留常用步骤，详细配置会收在下方折叠区域。
+            </p>
           </div>
         </div>
 
-        <div class="mt-8 grid gap-10 xl:grid-cols-[300px_minmax(0,1fr)]">
+        <div class="mt-8 grid gap-8 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside class="xl:sticky xl:top-24 xl:self-start">
             <div class="docs-shell-card p-4">
               <div
@@ -45,7 +32,7 @@
                     v-for="item in group.items"
                     :key="item.key"
                     type="button"
-                    class="w-full rounded-2xl border px-4 py-3 text-left transition"
+                    class="w-full rounded-[20px] border px-4 py-3 text-left transition"
                     :class="activeDoc === item.key
                       ? 'docs-nav-item-active'
                       : item.enabled
@@ -54,41 +41,16 @@
                     :disabled="!item.enabled"
                     @click="item.enabled ? activeDoc = item.key : null"
                   >
-                    <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <p class="text-sm font-semibold">{{ item.label }}</p>
                       <div>
-                        <div class="flex items-center gap-2">
-                          <span class="text-sm font-semibold">{{ item.label }}</span>
-                          <DocsTag
-                            v-if="item.recommended"
-                            tone="accent"
-                            size="xs"
-                          >
-                            推荐
-                          </DocsTag>
-                        </div>
                         <p
-                          class="mt-1 text-xs leading-6"
+                          class="mt-1.5 text-xs leading-6"
                           :class="activeDoc === item.key ? 'text-white/90' : 'docs-sidebar-summary'"
                         >
                           {{ item.summary }}
                         </p>
                       </div>
-                      <DocsTag
-                        v-if="activeDoc === item.key"
-                        tone="dark"
-                        size="xs"
-                        class="mt-0.5"
-                      >
-                        当前
-                      </DocsTag>
-                      <DocsTag
-                        v-else-if="!item.enabled"
-                        tone="warning"
-                        size="xs"
-                        class="mt-0.5"
-                      >
-                        待添加
-                      </DocsTag>
                     </div>
                   </button>
                 </div>
@@ -97,22 +59,6 @@
           </aside>
 
           <div class="min-w-0">
-            <div class="mb-6 flex flex-wrap items-center gap-2 border-b border-slate-200/80 pb-5 dark:border-white/10">
-              <DocsTag tone="neutral" size="xs">
-                {{ currentDocGroupLabel }}
-              </DocsTag>
-              <DocsTag
-                v-if="currentDoc.recommended"
-                tone="accent"
-                size="xs"
-              >
-                推荐路线
-              </DocsTag>
-              <DocsTag tone="neutral" size="xs">
-                直接复制可用配置
-              </DocsTag>
-            </div>
-
             <article class="max-w-5xl">
               <component :is="currentDoc.component" />
             </article>
@@ -126,7 +72,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { docsRegistry } from './docs/registry'
-import DocsTag from './docs/components/DocsTag.vue'
 import PublicSiteLayout from './PublicSiteLayout.vue'
 import './docs/docs-theme.css'
 
@@ -157,6 +102,4 @@ const groupedDocs = computed(() => {
     items: docsRegistry.filter((item) => item.group === group.key)
   })).filter((group) => group.items.length > 0)
 })
-
-const currentDocGroupLabel = computed(() => groupMeta[currentDoc.value.group]?.label ?? '文档')
 </script>

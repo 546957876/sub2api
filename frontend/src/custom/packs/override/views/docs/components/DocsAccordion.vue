@@ -1,14 +1,14 @@
 <template>
   <details
-    class="group rounded-[28px] border border-slate-200/80 bg-white/82 shadow-[0_20px_55px_rgba(15,23,42,0.06)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.035] dark:shadow-[0_14px_36px_rgba(0,0,0,0.18)]"
+    class="group rounded-[24px] border border-slate-200/80 bg-white/82 shadow-[0_10px_28px_rgba(15,23,42,0.04)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-[0_12px_28px_rgba(0,0,0,0.16)]"
     :open="defaultOpen"
   >
-    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 [&::-webkit-details-marker]:hidden">
+    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 [&::-webkit-details-marker]:hidden">
       <div>
         <DocsTag
           v-if="badge"
           :tone="badgeTone"
-          class="mb-3"
+          class="mb-2.5"
         >
           {{ badge }}
         </DocsTag>
@@ -29,7 +29,7 @@
       </svg>
     </summary>
 
-    <div class="border-t border-slate-200/80 px-5 pb-5 pt-5 dark:border-white/10">
+    <div class="border-t border-slate-200/80 px-5 pb-5 pt-4 dark:border-white/10">
       <slot />
     </div>
   </details>
