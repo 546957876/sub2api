@@ -24,3 +24,7 @@ export function getCustomNavItems(scope: CustomNavScope): CustomNavEntry[] {
 export function getCustomPageOverride(name: keyof NonNullable<CustomPack['pageOverrides']>) {
   return activeCustomPack.pageOverrides?.[name] ?? null
 }
+
+export function getCustomAppOverlays() {
+  return activeCustomPack.appOverlays ?? []
+}

@@ -1,6 +1,7 @@
 import { defineAsyncComponent } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { CustomPack } from '@/custom/core/types'
+import LatestAnnouncementVisitPopup from '@/custom/packs/override/views/LatestAnnouncementVisitPopup.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -61,6 +62,9 @@ const overridePack: CustomPack = {
       scope: 'personal',
       order: 110
     }
+  ],
+  appOverlays: [
+    LatestAnnouncementVisitPopup
   ],
   pageOverrides: {
     home: defineAsyncComponent(() => import('@/custom/packs/override/views/HomeView.vue'))

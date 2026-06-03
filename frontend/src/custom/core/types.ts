@@ -43,4 +43,5 @@ export interface CustomPack {
   routes?: RouteRecordRaw[]
   navItems?: CustomNavEntry[]
   pageOverrides?: Partial<Record<'home', Component>>
+  appOverlays?: Component[]
 }
