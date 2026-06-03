@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import DocsNodeView from './DocsNodeView.vue'
+import DocsCcSwitchView from './DocsCcSwitchView.vue'
 import DocsCodexView from './DocsCodexView.vue'
 import DocsClaudeCodeView from './DocsClaudeCodeView.vue'
 import DocsGeminiCliView from './DocsGeminiCliView.vue'
@@ -18,6 +19,12 @@ export const docsRegistry: DocsRegistryItem[] = [
     key: 'nodejs',
     label: 'Node.js 环境安装教程',
     component: DocsNodeView,
+    enabled: true
+  },
+  {
+    key: 'cc-switch',
+    label: 'CC Switch 使用教程',
+    component: DocsCcSwitchView,
     enabled: true
   },
   {

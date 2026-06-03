@@ -9,7 +9,7 @@
         </div>
 
         <div class="hidden items-center justify-center lg:flex">
-          <div class="flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/90 p-1 shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition-colors dark:border-white/8 dark:bg-white/[0.045] dark:shadow-none">
+          <div class="flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/90 p-1 shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition-colors dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none">
             <router-link
               to="/home"
               :class="desktopNavClass('/home')"
@@ -35,7 +35,7 @@
           <LocaleSwitcher />
           <button
             type="button"
-            class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-white/55 dark:hover:bg-white/5 dark:hover:text-white"
+            class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-white/72 dark:hover:bg-white/5 dark:hover:text-white"
             :title="isDark ? t('home.switchToLight') : t('home.switchToDark')"
             @click="toggleTheme"
           >
@@ -54,7 +54,7 @@
             </span>
             <span>{{ isAuthenticated ? t('home.dashboard') : t('home.login') }}</span>
             <svg
-              class="h-3.5 w-3.5 text-white/45"
+              class="h-3.5 w-3.5 text-white/60"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -136,12 +136,12 @@ function isActiveNav(path: string) {
 function desktopNavClass(path: string) {
   return isActiveNav(path)
     ? 'rounded-full px-4 py-2 text-sm font-medium transition bg-slate-900 text-white dark:bg-white dark:text-slate-950'
-    : 'rounded-full px-4 py-2 text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-white/84 dark:hover:text-white'
+    : 'rounded-full px-4 py-2 text-sm font-medium transition text-slate-600 hover:text-slate-900 dark:text-white/90 dark:hover:bg-white/[0.05] dark:hover:text-white'
 }
 
 function mobileNavClass(path: string) {
   return isActiveNav(path)
     ? 'shrink-0 rounded-full border border-slate-900 bg-slate-900 px-4 py-2 text-sm font-medium text-white transition dark:border-white dark:bg-white dark:text-slate-950'
-    : 'shrink-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/16 dark:bg-transparent dark:text-white/84 dark:hover:border-white/24 dark:hover:bg-white/[0.05] dark:hover:text-white'
+    : 'shrink-0 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/18 dark:bg-transparent dark:text-white/90 dark:hover:border-white/28 dark:hover:bg-white/[0.05] dark:hover:text-white'
 }
 </script>

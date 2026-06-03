@@ -15,7 +15,7 @@
             一个首页，先把真正会高频使用的入口做清楚。
           </h1>
 
-          <p class="mt-6 max-w-xl text-base leading-8 text-slate-600 md:text-lg dark:text-white/62">
+          <p class="mt-6 max-w-xl text-base leading-8 text-slate-600 md:text-lg dark:text-white/92">
             开始使用、查看模型价格、进入控制台。首页先只做这三件事，不把你带进一堆无关路径。
           </p>
 
@@ -28,22 +28,22 @@
             </router-link>
             <router-link
               to="/pricing"
-              class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/75 px-6 py-3 text-sm font-medium text-slate-700 transition hover:border-cyan-300 hover:text-cyan-700 dark:border-white/12 dark:bg-white/4 dark:text-white/88 dark:hover:border-white/22 dark:hover:bg-white/8"
+              class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/75 px-6 py-3 text-sm font-medium text-slate-700 transition hover:border-cyan-300 hover:text-cyan-700 dark:border-white/14 dark:bg-white/[0.06] dark:text-white dark:hover:border-white/28 dark:hover:bg-white/[0.10]"
             >
               {{ t('home.viewPricing') }}
             </router-link>
           </div>
 
           <div class="mt-10 flex flex-wrap gap-3">
-            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)] dark:border-white/8 dark:bg-white/[0.035] dark:text-white/78 dark:shadow-none">
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)] dark:border-white/18 dark:bg-white/[0.08] dark:text-white dark:shadow-none">
               <span class="h-2 w-2 rounded-full bg-cyan-500 dark:bg-cyan-300"></span>
               Claude / GPT / Gemini
             </span>
-            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)] dark:border-white/8 dark:bg-white/[0.035] dark:text-white/78 dark:shadow-none">
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)] dark:border-white/18 dark:bg-white/[0.08] dark:text-white dark:shadow-none">
               <span class="h-2 w-2 rounded-full bg-cyan-500 dark:bg-cyan-300"></span>
               模型价格对比
             </span>
-            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)] dark:border-white/8 dark:bg-white/[0.035] dark:text-white/78 dark:shadow-none">
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.04)] dark:border-white/18 dark:bg-white/[0.08] dark:text-white dark:shadow-none">
               <span class="h-2 w-2 rounded-full bg-cyan-500 dark:bg-cyan-300"></span>
               控制台与密钥管理
             </span>
@@ -58,7 +58,7 @@
                 <span class="h-2.5 w-2.5 rounded-full bg-rose-400/90"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-amber-300/90"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/90"></span>
-                <span class="ml-3 text-xs uppercase tracking-[0.2em] text-slate-400 dark:text-white/35">Control Surface</span>
+                <span class="ml-3 text-xs uppercase tracking-[0.2em] text-slate-400 dark:text-white/72">Control Surface</span>
               </div>
             </div>
 
@@ -66,9 +66,9 @@
               <section class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-white/7 dark:bg-white/[0.035]">
                 <div class="mb-5 flex items-start justify-between gap-4">
                   <div>
-                    <p class="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">Models</p>
+                    <p class="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/72">Models</p>
                     <h2 class="mt-2 text-lg font-semibold text-slate-900 dark:text-white">当前最常用的入口</h2>
-                    <p class="mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-white/52">
+                    <p class="mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-white/88">
                       不把所有功能塞进第一屏，只展示最常会点开的东西。
                     </p>
                   </div>
@@ -86,11 +86,11 @@
                     <div class="flex items-center justify-between gap-4">
                       <div>
                         <p class="text-sm font-medium text-slate-900 dark:text-white">{{ item.name }}</p>
-                        <p class="mt-1 text-xs text-slate-500 dark:text-white/42">{{ item.desc }}</p>
+                        <p class="mt-1 text-xs text-slate-500 dark:text-white/84">{{ item.desc }}</p>
                       </div>
                       <div class="text-right">
                         <p class="text-sm font-semibold text-cyan-600 dark:text-cyan-300">{{ item.state }}</p>
-                        <p class="mt-1 text-xs text-slate-400 dark:text-white/36">{{ item.meta }}</p>
+                        <p class="mt-1 text-xs text-slate-400 dark:text-white/76">{{ item.meta }}</p>
                       </div>
                     </div>
                   </div>
@@ -100,9 +100,9 @@
               <section class="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 dark:border-white/7 dark:bg-[#091223]/70">
                 <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
-                    <p class="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">Next Step</p>
+                    <p class="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/72">Next Step</p>
                     <h3 class="mt-2 text-lg font-semibold text-slate-900 dark:text-white">先看价格，再进入实际调用</h3>
-                    <p class="mt-2 max-w-md text-sm leading-7 text-slate-600 dark:text-white/58">
+                    <p class="mt-2 max-w-md text-sm leading-7 text-slate-600 dark:text-white/90">
                       对大多数用户来说，首页不需要解释全部能力，最重要的是把下一步动作变得清楚。
                     </p>
                   </div>
@@ -115,7 +115,7 @@
                     </router-link>
                     <router-link
                       :to="isAuthenticated ? dashboardPath : '/login'"
-                      class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 dark:border-white/12 dark:bg-white/6 dark:text-white/88 dark:hover:bg-white/10"
+                      class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 dark:border-white/14 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.12]"
                     >
                       {{ isAuthenticated ? t('home.goToDashboard') : t('home.getStarted') }}
                     </router-link>
