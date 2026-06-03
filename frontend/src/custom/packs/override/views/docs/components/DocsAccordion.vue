@@ -1,18 +1,18 @@
 <template>
   <details
-    class="group rounded-3xl border border-slate-200 bg-white/86 shadow-[0_20px_60px_rgba(15,23,42,0.08)] dark:border-white/8 dark:bg-[#131c2a] dark:shadow-[0_8px_30px_rgba(0,0,0,0.28)]"
+    class="group rounded-[28px] border border-slate-200/80 bg-white/82 shadow-[0_20px_55px_rgba(15,23,42,0.06)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.035] dark:shadow-[0_14px_36px_rgba(0,0,0,0.18)]"
     :open="defaultOpen"
   >
     <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 [&::-webkit-details-marker]:hidden">
       <div>
-        <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">{{ title }}</h2>
-        <p v-if="description" class="mt-2 text-sm leading-7 text-slate-600 dark:text-white/80">
+        <h2 class="docs-heading">{{ title }}</h2>
+        <p v-if="description" class="docs-copy-dense mt-2 max-w-3xl">
           {{ description }}
         </p>
       </div>
 
       <svg
-        class="h-5 w-5 shrink-0 text-slate-400 transition duration-200 group-open:rotate-180 dark:text-white/45"
+        class="docs-text-faint h-5 w-5 shrink-0 transition duration-200 group-open:rotate-180"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -22,7 +22,7 @@
       </svg>
     </summary>
 
-    <div class="border-t border-slate-200 px-5 pb-5 pt-5 dark:border-white/8">
+    <div class="border-t border-slate-200/80 px-5 pb-5 pt-5 dark:border-white/10">
       <slot />
     </div>
   </details>

@@ -1,10 +1,10 @@
 <template>
   <div class="space-y-6">
     <DocsSection>
-      <h1 class="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl dark:text-white">
+      <h1 class="docs-page-title">
         Claude Code 配置教程
       </h1>
-      <p class="mt-4 max-w-3xl text-base leading-8 text-slate-600 md:text-lg dark:text-white/80">
+      <p class="docs-page-intro mt-4 max-w-3xl">
         选好系统后，直接复制一键脚本执行即可。
       </p>
 
@@ -21,16 +21,16 @@
         </DocsNoteBox>
       </div>
 
-      <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-white/8 dark:bg-white/[0.025]">
+      <div class="docs-surface-muted mt-6 p-5">
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 class="text-2xl font-semibold text-slate-900 dark:text-white">快速开始</h2>
-            <p class="mt-2 text-sm leading-7 text-slate-600 dark:text-white/80">
+            <h2 class="docs-heading">快速开始</h2>
+            <p class="docs-copy-dense mt-2">
               1. 先选系统。2. 复制脚本。3. 执行。
             </p>
           </div>
 
-          <div class="text-sm leading-7 text-slate-600 dark:text-white/80">
+          <div class="docs-copy-dense">
             <div>当前站点：`{{ siteName }}`</div>
             <div>Claude 接口：`{{ anthropicBaseUrl }}`</div>
           </div>
@@ -41,17 +41,17 @@
             v-for="platform in platforms"
             :key="platform.key"
             type="button"
-            class="rounded-full border px-4 py-2 text-sm font-medium transition"
+            class="px-4 py-2 text-sm font-medium transition"
             :class="activePlatform === platform.key
-              ? 'border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950'
-              : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:text-slate-900 dark:border-white/30 dark:bg-white/[0.10] dark:text-white dark:hover:border-white/40 dark:hover:bg-white/[0.15] dark:hover:text-white'"
+              ? 'docs-platform-pill-active'
+              : 'docs-platform-pill-idle'"
             @click="activePlatform = platform.key"
           >
             {{ platform.label }}
           </button>
         </div>
 
-        <p class="mt-4 text-sm leading-7 text-slate-600 dark:text-white/80">
+        <p class="docs-copy-dense mt-4">
           这里使用的是 Claude / Anthropic 风格接口，`不要手动追加 /v1`。
         </p>
       </div>
@@ -63,7 +63,7 @@
     >
       <div v-if="activePlatform === 'windows'" class="space-y-5">
         <DocsMethodBlock title="执行方式" boxed>
-          <p class="text-sm leading-7 text-slate-600 dark:text-white/80">
+          <p>
             打开 PowerShell，把下面整段脚本完整粘贴进去后回车执行。
           </p>
         </DocsMethodBlock>
@@ -75,7 +75,7 @@
 
       <div v-else class="space-y-5">
         <DocsMethodBlock title="执行方式" boxed>
-          <p class="text-sm leading-7 text-slate-600 dark:text-white/80">
+          <p>
             {{ activePlatform === 'macos'
               ? '打开 Terminal / iTerm，把下面整段脚本完整粘贴进去后回车执行。'
               : '打开终端，把下面整段脚本完整粘贴进去后回车执行。' }}

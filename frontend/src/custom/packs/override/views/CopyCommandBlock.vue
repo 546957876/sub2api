@@ -1,15 +1,12 @@
 <template>
-  <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] dark:border-white/8 dark:bg-[#101826] dark:shadow-none">
-    <div class="flex flex-col gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between dark:border-white/8 dark:bg-[#0d1524]">
-      <div class="flex items-center gap-2">
-        <span class="h-2.5 w-2.5 rounded-full bg-rose-400/90"></span>
-        <span class="h-2.5 w-2.5 rounded-full bg-amber-300/90"></span>
-        <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/90"></span>
-        <span class="ml-2 text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ label }}</span>
+  <div class="docs-code-shell overflow-hidden">
+    <div class="docs-code-toolbar flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <span class="docs-copy-kicker text-[11px] uppercase tracking-[0.22em]">{{ label }}</span>
       </div>
       <button
         type="button"
-        class="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:border-cyan-300 hover:text-cyan-700 dark:border-white/30 dark:bg-white/[0.10] dark:text-white dark:hover:border-white/40 dark:hover:bg-white/[0.15] dark:hover:text-white"
+        class="docs-copy-action inline-flex items-center gap-2 self-start rounded-full px-3 py-1.5 text-xs font-medium transition"
         @click="copyCommand"
       >
         <Icon :name="copied ? 'check' : 'copy'" size="sm" />
@@ -17,7 +14,7 @@
       </button>
     </div>
 
-    <pre class="overflow-x-auto whitespace-pre-wrap break-words px-4 py-4 text-xs leading-7 text-slate-800 sm:text-sm dark:text-slate-100"><code>{{ command }}</code></pre>
+    <pre class="docs-code-text overflow-x-auto whitespace-pre-wrap break-words px-4 py-4 text-xs leading-7 sm:text-sm"><code>{{ command }}</code></pre>
   </div>
 </template>
 

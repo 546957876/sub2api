@@ -1,0 +1,379 @@
+.docs-page-title {
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: rgb(15 23 42);
+}
+
+.dark .docs-page-title {
+  color: rgb(255 255 255 / 0.98);
+}
+
+.docs-page-intro {
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.8;
+  color: rgb(51 65 85);
+}
+
+.dark .docs-page-intro {
+  color: rgb(255 255 255 / 0.92);
+}
+
+.docs-heading {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: rgb(15 23 42);
+}
+
+.dark .docs-heading {
+  color: rgb(255 255 255 / 0.98);
+}
+
+.docs-method-title {
+  font-size: 1.3rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: rgb(15 23 42);
+}
+
+.dark .docs-method-title {
+  color: rgb(255 255 255 / 0.98);
+}
+
+.docs-text-strong {
+  color: rgb(15 23 42);
+}
+
+.dark .docs-text-strong {
+  color: rgb(255 255 255 / 0.98);
+}
+
+.docs-text-body {
+  color: rgb(51 65 85);
+}
+
+.dark .docs-text-body {
+  color: rgb(255 255 255 / 0.92);
+}
+
+.docs-text-muted {
+  color: rgb(71 85 105);
+}
+
+.dark .docs-text-muted {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.docs-text-subtle {
+  color: rgb(100 116 139);
+}
+
+.dark .docs-text-subtle {
+  color: rgb(255 255 255 / 0.82);
+}
+
+.docs-text-faint {
+  color: rgb(148 163 184);
+}
+
+.dark .docs-text-faint {
+  color: rgb(255 255 255 / 0.68);
+}
+
+.docs-copy {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: rgb(71 85 105);
+}
+
+.dark .docs-copy {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.docs-copy-dense {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: rgb(71 85 105);
+}
+
+.dark .docs-copy-dense {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.docs-kicker {
+  color: rgb(100 116 139);
+}
+
+.dark .docs-kicker {
+  color: rgb(255 255 255 / 0.78);
+}
+
+.docs-chip-text {
+  color: rgb(100 116 139);
+}
+
+.dark .docs-chip-text {
+  color: rgb(255 255 255 / 0.84);
+}
+
+.docs-shell-card {
+  border: 1px solid rgb(226 232 240 / 0.8);
+  border-radius: 1.75rem;
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.dark .docs-shell-card {
+  border-color: rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.07);
+}
+
+.docs-sidebar-summary {
+  color: rgb(100 116 139);
+}
+
+.dark .docs-sidebar-summary {
+  color: rgb(255 255 255 / 0.86);
+}
+
+.docs-surface-muted {
+  border: 1px solid rgb(226 232 240 / 0.88);
+  border-radius: 1rem;
+  background: rgb(248 250 252 / 0.74);
+}
+
+.dark .docs-surface-muted {
+  border-color: rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.docs-platform-pill-active {
+  border: 1px solid rgb(15 23 42);
+  border-radius: 9999px;
+  background: rgb(15 23 42);
+  color: rgb(255 255 255);
+}
+
+.dark .docs-platform-pill-active {
+  border-color: rgb(255 255 255);
+  background: rgb(255 255 255);
+  color: rgb(2 6 23);
+}
+
+.docs-platform-pill-idle {
+  border: 1px solid rgb(226 232 240);
+  border-radius: 9999px;
+  background: rgb(248 250 252);
+  color: rgb(51 65 85);
+}
+
+.docs-platform-pill-idle:hover {
+  border-color: rgb(203 213 225);
+  color: rgb(15 23 42);
+}
+
+.dark .docs-platform-pill-idle {
+  border-color: rgb(255 255 255 / 0.24);
+  background: rgb(255 255 255 / 0.1);
+  color: rgb(255 255 255 / 0.98);
+}
+
+.dark .docs-platform-pill-idle:hover {
+  border-color: rgb(255 255 255 / 0.36);
+  background: rgb(255 255 255 / 0.15);
+  color: rgb(255 255 255 / 0.98);
+}
+
+.docs-inline-link {
+  color: rgb(8 145 178);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.dark .docs-inline-link {
+  color: rgb(103 232 249);
+}
+
+.docs-link-card {
+  border: 1px solid rgb(226 232 240);
+  border-radius: 1rem;
+  background: rgb(255 255 255);
+  color: rgb(51 65 85);
+}
+
+.docs-link-card:hover {
+  border-color: rgb(203 213 225);
+  color: rgb(15 23 42);
+}
+
+.dark .docs-link-card {
+  border-color: rgb(255 255 255 / 0.12);
+  background: rgb(255 255 255 / 0.08);
+  color: rgb(255 255 255 / 0.98);
+}
+
+.dark .docs-link-card:hover {
+  border-color: rgb(255 255 255 / 0.2);
+  background: rgb(255 255 255 / 0.12);
+  color: rgb(255 255 255 / 0.98);
+}
+
+.docs-chip-accent {
+  border: 1px solid rgb(6 182 212 / 0.18);
+  background: rgb(6 182 212 / 0.08);
+  color: rgb(14 116 144);
+}
+
+.dark .docs-chip-accent {
+  border-color: rgb(103 232 249 / 0.18);
+  background: rgb(103 232 249 / 0.08);
+  color: rgb(165 243 252);
+}
+
+.docs-nav-item-active {
+  border: 1px solid rgb(15 23 42);
+  background: rgb(15 23 42);
+  color: rgb(255 255 255);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+}
+
+.dark .docs-nav-item-active {
+  border-color: rgb(103 232 249 / 0.4);
+  background: rgb(19 32 51);
+  color: rgb(255 255 255);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+.docs-nav-item-idle {
+  border: 1px solid rgb(226 232 240);
+  background: rgb(248 250 252 / 0.72);
+  color: rgb(30 41 59);
+}
+
+.docs-nav-item-idle:hover {
+  border-color: rgb(203 213 225);
+  background: rgb(255 255 255);
+}
+
+.dark .docs-nav-item-idle {
+  border-color: rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.07);
+  color: rgb(255 255 255 / 0.98);
+}
+
+.dark .docs-nav-item-idle:hover {
+  border-color: rgb(255 255 255 / 0.24);
+  background: rgb(255 255 255 / 0.1);
+}
+
+.docs-nav-item-disabled {
+  cursor: not-allowed;
+  border: 1px solid rgb(226 232 240);
+  background: rgb(248 250 252 / 0.4);
+  color: rgb(148 163 184);
+}
+
+.dark .docs-nav-item-disabled {
+  border-color: rgb(255 255 255 / 0.08);
+  background: rgb(255 255 255 / 0.03);
+  color: rgb(255 255 255 / 0.42);
+}
+
+.docs-code-text {
+  color: rgb(241 245 249);
+}
+
+.docs-note {
+  border: 1px solid rgb(6 182 212 / 0.22);
+  border-radius: 1rem;
+  background: rgb(6 182 212 / 0.1);
+  color: rgb(30 41 59);
+}
+
+.dark .docs-note {
+  border-color: rgb(34 211 238 / 0.28);
+  background: rgb(34 211 238 / 0.14);
+  color: rgb(248 250 252);
+}
+
+.docs-note-title {
+  color: rgb(21 94 117);
+}
+
+.dark .docs-note-title {
+  color: rgb(165 243 252);
+}
+
+.docs-note-body {
+  color: rgb(30 41 59);
+}
+
+.dark .docs-note-body {
+  color: rgb(248 250 252);
+}
+
+.docs-nav-status-disabled {
+  color: rgb(203 213 225);
+}
+
+.dark .docs-nav-status-disabled {
+  color: rgb(255 255 255 / 0.24);
+}
+
+.docs-nav-status-active {
+  color: rgb(186 230 253);
+}
+
+.docs-copy-kicker {
+  color: rgb(203 213 225);
+}
+
+.dark .docs-copy-kicker {
+  color: rgb(255 255 255 / 0.86);
+}
+
+.docs-code-shell {
+  border: 1px solid rgb(226 232 240 / 0.8);
+  border-radius: 1rem;
+  background: rgb(2 6 23);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+}
+
+.dark .docs-code-shell {
+  border-color: rgb(255 255 255 / 0.14);
+  background: rgb(9 17 29);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+}
+
+.docs-code-toolbar {
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.dark .docs-code-toolbar {
+  border-bottom-color: rgb(255 255 255 / 0.1);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.docs-copy-action {
+  border: 1px solid rgb(255 255 255 / 0.24);
+  background: rgb(255 255 255 / 0.12);
+  color: rgb(255 255 255);
+}
+
+.docs-copy-action:hover {
+  border-color: rgb(103 232 249 / 0.7);
+  color: rgb(255 255 255);
+}
+
+.dark .docs-copy-action {
+  border-color: rgb(255 255 255 / 0.28);
+  background: rgb(255 255 255 / 0.14);
+}
+
+.dark .docs-copy-action:hover {
+  border-color: rgb(103 232 249 / 0.8);
+  background: rgb(255 255 255 / 0.18);
+}
