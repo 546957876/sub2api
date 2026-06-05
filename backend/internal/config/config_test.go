@@ -11,14 +11,24 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func isolateConfigSearchPath(t *testing.T) {
+	t.Helper()
+	tempDir := t.TempDir()
+	configPath := filepath.Join(tempDir, "config.yaml")
+	require.NoError(t, os.WriteFile(configPath, []byte("{}\n"), 0o644))
+	t.Setenv("DATA_DIR", tempDir)
+}
+
 func resetViperWithJWTSecret(t *testing.T) {
 	t.Helper()
 	viper.Reset()
+	isolateConfigSearchPath(t)
 	t.Setenv("JWT_SECRET", strings.Repeat("x", 32))
 }
 
 func TestLoadForBootstrapAllowsMissingJWTSecret(t *testing.T) {
 	viper.Reset()
+	isolateConfigSearchPath(t)
 	t.Setenv("JWT_SECRET", "")
 
 	cfg, err := LoadForBootstrap()
