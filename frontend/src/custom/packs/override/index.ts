@@ -13,7 +13,8 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: false,
       title: 'Documentation',
-      titleKey: 'custom.nav.integrationDocs'
+      titleKey: 'custom.nav.integrationDocs',
+      allowInBackendMode: true
     }
   },
   {
@@ -23,7 +24,8 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: false,
       title: 'Pricing',
-      titleKey: 'custom.nav.modelPricing'
+      titleKey: 'custom.nav.modelPricing',
+      allowInBackendMode: true
     }
   }
 ]

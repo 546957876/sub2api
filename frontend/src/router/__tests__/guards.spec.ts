@@ -84,7 +84,7 @@ function simulateGuard(
       return authState.isAdmin ? '/admin/dashboard' : '/dashboard'
     }
     if (authState.backendModeEnabled && !authState.isAuthenticated) {
-      const allowed = ['/login', '/key-usage', '/setup', '/payment/result']
+      const allowInBackendMode = toMeta.allowInBackendMode === true
       const callbackPaths = [
         '/auth/callback',
         '/auth/linuxdo/callback',
@@ -94,7 +94,7 @@ function simulateGuard(
       ]
       const pendingAuthPaths = ['/register', '/email-verify']
       const isAllowed =
-        allowed.some((path) => toPath === path || toPath.startsWith(path)) ||
+        allowInBackendMode ||
         callbackPaths.includes(toPath) ||
         (authState.hasPendingAuthSession && pendingAuthPaths.includes(toPath))
       if (!isAllowed) {
@@ -133,7 +133,7 @@ function simulateGuard(
     if (authState.isAuthenticated && authState.isAdmin) {
       return null
     }
-    const allowed = ['/login', '/key-usage', '/setup', '/payment/result']
+    const allowInBackendMode = toMeta.allowInBackendMode === true
     const callbackPaths = [
       '/auth/callback',
       '/auth/linuxdo/callback',
@@ -143,7 +143,7 @@ function simulateGuard(
     ]
     const pendingAuthPaths = ['/register', '/email-verify']
     const isAllowed =
-      allowed.some((path) => toPath === path || toPath.startsWith(path)) ||
+      allowInBackendMode ||
       callbackPaths.includes(toPath) ||
       (authState.hasPendingAuthSession && pendingAuthPaths.includes(toPath))
     if (!isAllowed) {
@@ -187,6 +187,15 @@ describe('路由守卫逻辑', () => {
 
     it('访问 /home 公开页面允许通过', () => {
       const redirect = simulateGuard('/home', { requiresAuth: false }, authState)
+      expect(redirect).toBeNull()
+    })
+
+    it('backend mode 下允许标记为 allowInBackendMode 的公开页通过', () => {
+      const redirect = simulateGuard(
+        '/docs',
+        { requiresAuth: false, allowInBackendMode: true },
+        { ...authState, backendModeEnabled: true }
+      )
       expect(redirect).toBeNull()
     })
   })
@@ -356,7 +365,7 @@ describe('路由守卫逻辑', () => {
         backendModeEnabled: true,
         hasPendingAuthSession: false,
       }
-      const redirect = simulateGuard('/login', { requiresAuth: false }, authState)
+      const redirect = simulateGuard('/login', { requiresAuth: false, allowInBackendMode: true }, authState)
       expect(redirect).toBeNull()
     })
 
@@ -368,7 +377,7 @@ describe('路由守卫逻辑', () => {
         backendModeEnabled: true,
         hasPendingAuthSession: false,
       }
-      const redirect = simulateGuard('/key-usage', { requiresAuth: false }, authState)
+      const redirect = simulateGuard('/key-usage', { requiresAuth: false, allowInBackendMode: true }, authState)
       expect(redirect).toBeNull()
     })
 
@@ -380,7 +389,7 @@ describe('路由守卫逻辑', () => {
         backendModeEnabled: true,
         hasPendingAuthSession: false,
       }
-      const redirect = simulateGuard('/setup', { requiresAuth: false }, authState)
+      const redirect = simulateGuard('/setup', { requiresAuth: false, allowInBackendMode: true }, authState)
       expect(redirect).toBeNull()
     })
 
@@ -454,7 +463,7 @@ describe('路由守卫逻辑', () => {
         backendModeEnabled: true,
         hasPendingAuthSession: false,
       }
-      const redirect = simulateGuard('/login', { requiresAuth: false }, authState)
+      const redirect = simulateGuard('/login', { requiresAuth: false, allowInBackendMode: true }, authState)
       expect(redirect).toBeNull()
     })
 
@@ -466,7 +475,7 @@ describe('路由守卫逻辑', () => {
         backendModeEnabled: true,
         hasPendingAuthSession: false,
       }
-      const redirect = simulateGuard('/key-usage', { requiresAuth: false }, authState)
+      const redirect = simulateGuard('/key-usage', { requiresAuth: false, allowInBackendMode: true }, authState)
       expect(redirect).toBeNull()
     })
 
@@ -502,7 +511,7 @@ describe('路由守卫逻辑', () => {
         backendModeEnabled: true,
         hasPendingAuthSession: false,
       }
-      const redirect = simulateGuard('/payment/result', { requiresAuth: false }, authState)
+      const redirect = simulateGuard('/payment/result', { requiresAuth: false, allowInBackendMode: true }, authState)
       expect(redirect).toBeNull()
     })
 

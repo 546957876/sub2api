@@ -25,7 +25,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/setup/SetupWizardView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'Setup'
+      title: 'Setup',
+      allowInBackendMode: true
     }
   },
 
@@ -46,7 +47,8 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: false,
       title: 'Login',
-      titleKey: 'common.login'
+      titleKey: 'common.login',
+      allowInBackendMode: true
     }
   },
   {
@@ -164,6 +166,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: false,
       title: 'Key Usage',
+      allowInBackendMode: true,
     }
   },
   {
@@ -172,7 +175,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/public/LegalDocumentView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'Legal Document'
+      title: 'Legal Document',
+      allowInBackendMode: true
     }
   },
   ...getCustomRoutes(),
@@ -324,7 +328,8 @@ const routes: RouteRecordRaw[] = [
       requiresAdmin: false,
       title: 'Payment Result',
       titleKey: 'payment.result.success',
-      requiresPayment: false
+      requiresPayment: false,
+      allowInBackendMode: true
     }
   },
   {
@@ -348,7 +353,8 @@ const routes: RouteRecordRaw[] = [
       requiresAdmin: false,
       title: 'Airwallex Payment',
       titleKey: 'payment.airwallexPay',
-      requiresPayment: false
+      requiresPayment: false,
+      allowInBackendMode: true
     }
   },
   {
@@ -691,7 +697,6 @@ let authInitialized = false
 const navigationLoading = useNavigationLoadingState()
 // 延迟初始化预加载，传入 router 实例
 let routePrefetch: ReturnType<typeof useRoutePrefetch> | null = null
-const BACKEND_MODE_ALLOWED_PATHS = ['/login', '/key-usage', '/setup', '/payment/result', '/payment/airwallex', '/legal', '/pricing']
 const BACKEND_MODE_CALLBACK_PATHS = [
   '/auth/callback',
   '/auth/linuxdo/callback',
@@ -703,8 +708,12 @@ const BACKEND_MODE_CALLBACK_PATHS = [
 ]
 const BACKEND_MODE_PENDING_AUTH_PATHS = ['/register', '/email-verify']
 
-function isBackendModePublicRouteAllowed(path: string, hasPendingAuthSession: boolean): boolean {
-  if (BACKEND_MODE_ALLOWED_PATHS.some((allowedPath) => path === allowedPath || path.startsWith(allowedPath))) {
+function isBackendModePublicRouteAllowed(
+  path: string,
+  hasPendingAuthSession: boolean,
+  routeMeta?: Record<string, any>,
+): boolean {
+  if (routeMeta?.allowInBackendMode === true) {
     return true
   }
 
@@ -782,7 +791,7 @@ router.beforeEach(async (to, _from, next) => {
     }
     // Backend mode: block public pages for unauthenticated users (except login, key-usage, setup)
     if (appStore.backendModeEnabled && !authStore.isAuthenticated) {
-      const isAllowed = isBackendModePublicRouteAllowed(to.path, authStore.hasPendingAuthSession)
+      const isAllowed = isBackendModePublicRouteAllowed(to.path, authStore.hasPendingAuthSession, to.meta)
       if (!isAllowed) {
         next('/login')
         return
@@ -850,7 +859,7 @@ router.beforeEach(async (to, _from, next) => {
       next()
       return
     }
-    const isAllowed = isBackendModePublicRouteAllowed(to.path, authStore.hasPendingAuthSession)
+    const isAllowed = isBackendModePublicRouteAllowed(to.path, authStore.hasPendingAuthSession, to.meta)
     if (!isAllowed) {
       next('/login')
       return
