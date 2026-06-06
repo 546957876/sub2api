@@ -13,7 +13,6 @@ vi.mock('vue-i18n', async (importOriginal) => {
   }
 })
 
-const TooltipStub = { template: '<div><slot /></div>' }
 const PaginationStub = { template: '<div class="pagination-stub" />' }
 
 function mountTable(row: Partial<OpsErrorLog>) {
@@ -40,7 +39,7 @@ function mountTable(row: Partial<OpsErrorLog>) {
 
   return mount(OpsErrorLogTable, {
     props: { rows: [base], total: 1, loading: false, page: 1, pageSize: 20 },
-    global: { stubs: { 'el-tooltip': TooltipStub, Pagination: PaginationStub } },
+    global: { stubs: { Pagination: PaginationStub } },
   })
 }
 
