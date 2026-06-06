@@ -37,6 +37,9 @@ export interface CustomNavEntry {
   order?: number
 }
 
+export type CustomLocaleCode = 'en' | 'zh'
+export type CustomLocaleMessages = Record<string, any>
+
 export interface CustomPack {
   id: string
   displayName: string
@@ -44,4 +47,5 @@ export interface CustomPack {
   navItems?: CustomNavEntry[]
   pageOverrides?: Partial<Record<'home', Component>>
   appOverlays?: Component[]
+  locales?: Partial<Record<CustomLocaleCode, CustomLocaleMessages>>
 }

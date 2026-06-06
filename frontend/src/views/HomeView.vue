@@ -126,20 +126,14 @@
               {{ siteSubtitle }}
             </p>
 
-            <!-- CTA Buttons -->
-            <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <!-- CTA Button -->
+            <div>
               <router-link
                 :to="isAuthenticated ? dashboardPath : '/login'"
                 class="btn btn-primary px-8 py-3 text-base shadow-lg shadow-primary-500/30"
               >
                 {{ isAuthenticated ? t('home.goToDashboard') : t('home.getStarted') }}
                 <Icon name="arrowRight" size="md" class="ml-2" :stroke-width="2" />
-              </router-link>
-              <router-link
-                to="/pricing"
-                class="inline-flex items-center justify-center rounded-full border border-gray-300/80 bg-white/80 px-6 py-3 text-base font-medium text-gray-700 transition-colors hover:border-primary-400 hover:text-primary-600 dark:border-dark-600 dark:bg-dark-800/80 dark:text-dark-200 dark:hover:border-primary-500 dark:hover:text-primary-300"
-              >
-                {{ t('home.viewPricing') }}
               </router-link>
             </div>
           </div>
@@ -396,6 +390,14 @@
           >
             {{ t('home.docs') }}
           </a>
+          <a
+            :href="githubUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-dark-400 dark:hover:text-white"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </footer>
@@ -429,6 +431,9 @@ const isHomeContentUrl = computed(() => {
 
 // Theme
 const isDark = ref(document.documentElement.classList.contains('dark'))
+
+// GitHub URL
+const githubUrl = 'https://github.com/Wei-Shaw/sub2api'
 
 // Auth state
 const isAuthenticated = computed(() => authStore.isAuthenticated)

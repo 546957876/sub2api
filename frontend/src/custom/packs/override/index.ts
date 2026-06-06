@@ -2,6 +2,8 @@ import { defineAsyncComponent } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { CustomPack } from '@/custom/core/types'
 import LatestAnnouncementVisitPopup from '@/custom/packs/override/views/LatestAnnouncementVisitPopup.vue'
+import enLocale from '@/custom/packs/override/locales/en'
+import zhLocale from '@/custom/packs/override/locales/zh'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,7 +13,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       requiresAuth: false,
       title: 'Documentation',
-      titleKey: 'nav.integrationDocs'
+      titleKey: 'custom.nav.integrationDocs'
     }
   },
   {
@@ -20,7 +22,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/custom/packs/override/views/PricingRouteView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'Pricing'
+      title: 'Pricing',
+      titleKey: 'custom.nav.modelPricing'
     }
   }
 ]
@@ -33,7 +36,7 @@ const overridePack: CustomPack = {
     {
       path: '/pricing',
       label: 'Model Pricing',
-      labelKey: 'nav.modelPricing',
+      labelKey: 'custom.nav.modelPricing',
       icon: 'price-tag',
       scope: 'user',
       order: 100
@@ -41,7 +44,7 @@ const overridePack: CustomPack = {
     {
       path: '/pricing',
       label: 'Model Pricing',
-      labelKey: 'nav.modelPricing',
+      labelKey: 'custom.nav.modelPricing',
       icon: 'price-tag',
       scope: 'personal',
       order: 100
@@ -49,7 +52,7 @@ const overridePack: CustomPack = {
     {
       path: '/docs',
       label: 'Documentation',
-      labelKey: 'nav.integrationDocs',
+      labelKey: 'custom.nav.integrationDocs',
       icon: 'book',
       scope: 'user',
       order: 110
@@ -57,7 +60,7 @@ const overridePack: CustomPack = {
     {
       path: '/docs',
       label: 'Documentation',
-      labelKey: 'nav.integrationDocs',
+      labelKey: 'custom.nav.integrationDocs',
       icon: 'book',
       scope: 'personal',
       order: 110
@@ -68,6 +71,10 @@ const overridePack: CustomPack = {
   ],
   pageOverrides: {
     home: defineAsyncComponent(() => import('@/custom/packs/override/views/HomeView.vue'))
+  },
+  locales: {
+    en: enLocale,
+    zh: zhLocale
   }
 }
 

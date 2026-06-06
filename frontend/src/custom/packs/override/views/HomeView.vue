@@ -30,7 +30,7 @@
               to="/pricing"
               class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/75 px-6 py-3 text-sm font-medium text-slate-700 transition hover:border-cyan-300 hover:text-cyan-700 dark:border-white/14 dark:bg-white/[0.06] dark:text-white dark:hover:border-white/28 dark:hover:bg-white/[0.10]"
             >
-              {{ t('home.viewPricing') }}
+              {{ t('custom.home.viewPricing') }}
             </router-link>
           </div>
 

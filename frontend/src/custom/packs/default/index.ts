@@ -6,6 +6,7 @@ const defaultPack: CustomPack = {
   routes: [],
   navItems: [],
   pageOverrides: {},
+  locales: {},
 }
 
 export default defaultPack

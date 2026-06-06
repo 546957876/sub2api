@@ -14,19 +14,19 @@
               to="/home"
               :class="desktopNavClass('/home')"
             >
-              首页
+              {{ t('custom.nav.home') }}
             </router-link>
             <router-link
               to="/pricing"
               :class="desktopNavClass('/pricing')"
             >
-              模型价格
+              {{ t('custom.nav.modelPricing') }}
             </router-link>
             <router-link
               to="/docs"
               :class="desktopNavClass('/docs')"
             >
-              {{ t('nav.integrationDocs') }}
+              {{ t('custom.nav.integrationDocs') }}
             </router-link>
           </div>
         </div>
@@ -76,19 +76,19 @@
             to="/home"
             :class="mobileNavClass('/home')"
           >
-            首页
+            {{ t('custom.nav.home') }}
           </router-link>
           <router-link
             to="/pricing"
             :class="mobileNavClass('/pricing')"
           >
-            模型价格
+            {{ t('custom.nav.modelPricing') }}
           </router-link>
           <router-link
             to="/docs"
             :class="mobileNavClass('/docs')"
           >
-            {{ t('nav.integrationDocs') }}
+            {{ t('custom.nav.integrationDocs') }}
           </router-link>
         </div>
       </div>

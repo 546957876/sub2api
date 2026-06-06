@@ -7,13 +7,13 @@
       <div class="mb-8">
         <p class="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-500/18 bg-cyan-500/10 px-3 py-1 text-xs text-cyan-700 dark:border-cyan-300/20 dark:bg-cyan-400/8 dark:text-cyan-200/85">
           <Icon name="calculator" size="sm" class="text-cyan-600 dark:text-cyan-300" />
-          {{ t('pricingPage.kicker') }}
+          {{ t('custom.pricingPage.kicker') }}
         </p>
         <h1 class="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl dark:text-white">
-          {{ t('pricingPage.title') }}
+          {{ t('custom.pricingPage.title') }}
         </h1>
         <p class="mt-3 max-w-3xl text-base leading-7 text-slate-600 md:text-lg dark:text-white/65">
-          {{ t('pricingPage.description') }}
+          {{ t('custom.pricingPage.description') }}
         </p>
       </div>
 
@@ -38,7 +38,7 @@
 
         <div class="rounded-2xl border border-slate-200 bg-white/82 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.07)] dark:border-[#243042] dark:bg-[#131c2a] dark:shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
           <label class="mb-2 block text-sm font-medium text-slate-700 dark:text-white/75">
-            {{ t('pricingPage.multiplierLabel') }}
+            {{ t('custom.pricingPage.multiplierLabel') }}
           </label>
           <div class="flex items-center gap-3">
             <input
@@ -64,7 +64,7 @@
             </button>
           </div>
           <p class="mt-3 text-xs leading-6 text-slate-500 dark:text-white/45">
-            {{ t('pricingPage.multiplierHint') }}
+            {{ t('custom.pricingPage.multiplierHint') }}
           </p>
         </div>
       </div>
@@ -72,17 +72,17 @@
       <div class="mb-6 rounded-2xl border border-slate-200 bg-white/82 p-4 text-sm shadow-[0_18px_50px_rgba(15,23,42,0.07)] dark:border-[#243042] dark:bg-[#131c2a] dark:shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
         <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div class="space-y-1">
-            <p class="font-medium text-slate-900 dark:text-white/90">{{ t('pricingPage.rulesTitle') }}</p>
+            <p class="font-medium text-slate-900 dark:text-white/90">{{ t('custom.pricingPage.rulesTitle') }}</p>
             <p class="text-slate-600 dark:text-white/60">
-              {{ t('pricingPage.rulesLine1') }}
+              {{ t('custom.pricingPage.rulesLine1') }}
             </p>
             <p class="text-slate-600 dark:text-white/60">
-              {{ t('pricingPage.rulesLine2') }}
+              {{ t('custom.pricingPage.rulesLine2') }}
             </p>
           </div>
           <div class="rounded-xl border border-cyan-500/16 bg-cyan-500/8 px-4 py-3 text-right dark:border-amber-400/20 dark:bg-amber-500/10">
             <p class="text-xs uppercase tracking-[0.18em] text-cyan-700/80 dark:text-amber-200/75">
-              {{ t('pricingPage.activeMultiplier') }}
+              {{ t('custom.pricingPage.activeMultiplier') }}
             </p>
             <p class="mt-1 text-2xl font-bold text-cyan-700 dark:text-amber-300">
               {{ normalizedMultiplier.toFixed(2) }}x
@@ -115,7 +115,7 @@
 
               <div class="grid gap-3">
                 <div v-if="row.official.input != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
-                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.inputPrice') }}</p>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.inputPrice') }}</p>
                   <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
                     {{ formatRmb(multiplyPrice(row.official.input)) }}
                     <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
@@ -126,7 +126,7 @@
                 </div>
 
                 <div v-if="row.official.output != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
-                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.outputPrice') }}</p>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.outputPrice') }}</p>
                   <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
                     {{ formatRmb(multiplyPrice(row.official.output)) }}
                     <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
@@ -137,7 +137,7 @@
                 </div>
 
                 <div v-if="row.official.cacheWrite != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
-                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.cacheWritePrice') }}</p>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.cacheWritePrice') }}</p>
                   <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
                     {{ formatRmb(multiplyPrice(row.official.cacheWrite)) }}
                     <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
@@ -148,7 +148,7 @@
                 </div>
 
                 <div v-if="row.official.cacheRead != null" class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
-                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.cacheReadPrice') }}</p>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.cacheReadPrice') }}</p>
                   <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
                     {{ formatRmb(multiplyPrice(row.official.cacheRead)) }}
                     <span class="font-normal text-slate-400 dark:text-white/45">/ 1M tokens</span>
@@ -161,11 +161,11 @@
 
               <div class="mt-4 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
                 <div>
-                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.multiplier') }}</p>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.multiplier') }}</p>
                   <p class="mt-1 text-sm font-medium text-slate-700 dark:text-white/78">{{ normalizedMultiplier.toFixed(2) }}x</p>
                 </div>
                 <div class="text-right">
-                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('pricingPage.columns.discount') }}</p>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.discount') }}</p>
                   <span class="mt-1 inline-flex rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-300">
                     {{ discountLabel }}
                   </span>
@@ -178,13 +178,13 @@
             <table class="min-w-[1220px] border-separate border-spacing-0 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/8 dark:bg-[#101826]">
             <thead>
               <tr class="bg-slate-50 text-left text-sm text-slate-500 dark:bg-[#1a2435] dark:text-white/70">
-                <th class="w-[250px] px-5 py-4 font-medium">{{ t('pricingPage.columns.model') }}</th>
-                <th v-if="showInputColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.inputPrice') }}</th>
-                <th v-if="showOutputColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.outputPrice') }}</th>
-                <th v-if="showCacheWriteColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.cacheWritePrice') }}</th>
-                <th v-if="showCacheReadColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('pricingPage.columns.cacheReadPrice') }}</th>
-                <th class="w-[100px] px-4 py-4 font-medium">{{ t('pricingPage.columns.multiplier') }}</th>
-                <th class="w-[110px] px-4 py-4 font-medium">{{ t('pricingPage.columns.discount') }}</th>
+                <th class="w-[250px] px-5 py-4 font-medium">{{ t('custom.pricingPage.columns.model') }}</th>
+                <th v-if="showInputColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.inputPrice') }}</th>
+                <th v-if="showOutputColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.outputPrice') }}</th>
+                <th v-if="showCacheWriteColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.cacheWritePrice') }}</th>
+                <th v-if="showCacheReadColumn" class="w-[190px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.cacheReadPrice') }}</th>
+                <th class="w-[100px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.multiplier') }}</th>
+                <th class="w-[110px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.discount') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -330,16 +330,16 @@ function formatRmb(price?: number) {
 }
 
 const tabs = computed((): Array<{ key: PricingTabKey; label: string; icon: 'brain' | 'terminal' | 'sparkles' }> => [
-  { key: 'claude', label: 'Claude Code', icon: 'brain' },
-  { key: 'codex', label: 'Codex', icon: 'terminal' },
-  { key: 'gemini', label: 'Gemini', icon: 'sparkles' },
+  { key: 'claude', label: t('custom.pricingPage.tabs.claude'), icon: 'brain' },
+  { key: 'codex', label: t('custom.pricingPage.tabs.codex'), icon: 'terminal' },
+  { key: 'gemini', label: t('custom.pricingPage.tabs.gemini'), icon: 'sparkles' },
 ])
 
 const categories = computed<PricingCategory[]>(() => [
   {
     key: 'claude',
-    title: 'Claude Code 价格列表',
-    description: '展示 Claude 编程相关模型的官方价格，并按当前倍率实时换算平台价格。',
+    title: t('custom.pricingPage.categoryTitles.claude'),
+    description: t('custom.pricingPage.categoryDescriptions.claude'),
     icon: 'sparkles',
     rows: [
       {
@@ -366,8 +366,8 @@ const categories = computed<PricingCategory[]>(() => [
   },
   {
     key: 'codex',
-    title: 'Codex 价格列表',
-    description: '展示 Codex 系列模型的官方价格，适合用于对比不同倍率下的实际消耗。',
+    title: t('custom.pricingPage.categoryTitles.codex'),
+    description: t('custom.pricingPage.categoryDescriptions.codex'),
     icon: 'terminal',
     rows: [
       {
@@ -384,8 +384,8 @@ const categories = computed<PricingCategory[]>(() => [
   },
   {
     key: 'gemini',
-    title: 'Gemini 价格列表',
-    description: '展示 Gemini 系列模型的官方价格，便于统一按人民币口径比较。',
+    title: t('custom.pricingPage.categoryTitles.gemini'),
+    description: t('custom.pricingPage.categoryDescriptions.gemini'),
     icon: 'star',
     rows: [
       {

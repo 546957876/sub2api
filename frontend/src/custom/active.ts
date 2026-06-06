@@ -1,6 +1,12 @@
 import defaultPack from '@/custom/packs/default'
 import overridePack from '@/custom/packs/override'
-import type { CustomNavEntry, CustomNavScope, CustomPack } from '@/custom/core/types'
+import type {
+  CustomLocaleCode,
+  CustomLocaleMessages,
+  CustomNavEntry,
+  CustomNavScope,
+  CustomPack
+} from '@/custom/core/types'
 
 const packRegistry: Record<string, CustomPack> = {
   default: defaultPack,
@@ -27,4 +33,8 @@ export function getCustomPageOverride(name: keyof NonNullable<CustomPack['pageOv
 
 export function getCustomAppOverlays() {
   return activeCustomPack.appOverlays ?? []
+}
+
+export function getCustomLocaleMessages(locale: CustomLocaleCode): CustomLocaleMessages | null {
+  return activeCustomPack.locales?.[locale] ?? null
 }
