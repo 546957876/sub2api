@@ -182,6 +182,52 @@ frontend/src/custom/packs/override/views/
 3. 再推到 `origin`
 4. 最后更新服务器
 
+### 上游同步前的固定检查
+
+未来同步 `upstream/main` 时，不要直接凭感觉 merge，先固定执行一次：
+
+```bash
+cd D:\JS\sub2api
+npm.cmd run sync:upstream:check
+```
+
+如果你希望把“检测到重叠文件就停止”作为硬门槛，统一使用：
+
+```bash
+cd D:\JS\sub2api
+npm.cmd run sync:upstream:guard
+```
+
+这两个命令会先抓取 `upstream` 最新状态，再输出：
+
+- 当前分支 / upstream 提交
+- 当前共同基线
+- 本地与 upstream 的 ahead / behind
+- 自共同基线以来双方都改过的重叠文件
+- 是否命中同步热点文件
+
+#### 当前约定的同步热点文件
+
+以下文件即使已经做了二开隔离，未来仍应优先检查，因为它们是“接入点”而不是“页面主体”：
+
+- `frontend/src/router/index.ts`
+- `frontend/src/components/layout/AppSidebar.vue`
+- `frontend/src/App.vue`
+- `frontend/src/views/public/HomeRouteEntry.vue`
+- `frontend/src/custom/active.ts`
+- `frontend/src/i18n/locales/zh.ts`
+- `frontend/src/i18n/locales/en.ts`
+- `package.json`
+- `script/*.ps1`
+- `deploy/*`
+
+#### 二开新增内容放置规则
+
+- 新页面主体继续优先放在 `frontend/src/custom/packs/override/views/`
+- 自定义导航 / 自定义路由继续通过 `frontend/src/custom/active.ts` 和 `frontend/src/custom/packs/override/index.ts` 接入
+- 二开新增文案继续优先放在 `frontend/src/custom/packs/override/locales/`
+- 不要把新的二开页面主体长期回写到上游热点文件里
+
 ## 约束
 
 - 不要把未验证完成的功能直接提交到 `main`
