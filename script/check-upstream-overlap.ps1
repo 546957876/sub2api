@@ -2,7 +2,8 @@
 param(
   [string]$TargetBranch = "develop",
   [string]$UpstreamRef = "upstream/main",
-  [switch]$Fetch
+  [switch]$Fetch,
+  [switch]$FailOnOverlap
 )
 
 $ErrorActionPreference = "Stop"
@@ -67,4 +68,8 @@ if ($hotspots.Count -eq 0) {
   Write-Host "  none" -ForegroundColor Green
 } else {
   $hotspots | ForEach-Object { Write-Host "  $_" -ForegroundColor Magenta }
+}
+
+if ($FailOnOverlap -and $overlap.Count -gt 0) {
+  throw "Upstream overlap detected. Resolve overlap files before syncing."
 }
