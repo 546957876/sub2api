@@ -1,0 +1,25 @@
+name: Upstream Overlap Guard
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  overlap-guard:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Add upstream remote
+        shell: pwsh
+        run: |
+          git remote add upstream https://github.com/Wei-Shaw/sub2api.git
+      - name: Check develop vs upstream overlap
+        shell: pwsh
+        run: |
+          .\script\check-upstream-overlap.ps1 -TargetBranch origin/develop -UpstreamRef upstream/main -Fetch -FailOnOverlap

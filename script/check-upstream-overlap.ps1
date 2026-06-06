@@ -9,6 +9,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$safeDirectory = $repoRoot -replace '\\', '/'
 
 function Invoke-Git {
   param(
@@ -16,7 +17,7 @@ function Invoke-Git {
     [string[]]$Args
   )
 
-  $output = & git -c safe.directory=D:/JS/sub2api @Args
+  $output = & git "-c" "safe.directory=$safeDirectory" @Args
   if ($LASTEXITCODE -ne 0) {
     throw "git $($Args -join ' ') failed:`n$output"
   }
