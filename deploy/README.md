@@ -182,7 +182,7 @@ docker compose -f docker-compose.local.yml down
 rm -rf data/ postgres_data/ redis_data/
 ```
 
-If you deploy from your own fork using the local source build flow, you can use:
+If you deploy from your own fork and want low-resource updates on the server, use the prebuilt-image flow:
 
 ```bash
 chmod +x deploy/update-fork.sh
@@ -191,9 +191,24 @@ chmod +x deploy/update-fork.sh
 
 This script will:
 - `git pull origin <current-branch>`
-- rebuild the local Docker image from your forked source
-- restart the stack with `docker-compose.local.yml`
+- `docker compose pull` the latest published image for your fork
+- restart the stack with `docker-compose.local.yml` without a local build
 - print the current image name and recent logs
+
+Before the first run, set the image tag in `deploy/.env` (or keep the default if this fork is `546957876/sub2api`):
+
+```bash
+SUB2API_IMAGE=ghcr.io/546957876/sub2api:main
+```
+
+The `main` tag is updated by GitHub Actions on every push to `main`, so the server only needs to pull and restart.
+
+If your GitHub Container Registry package is private, also set credentials in `deploy/.env` so `update-fork.sh` can log in before pulling:
+
+```bash
+GHCR_USERNAME=your-github-username
+GHCR_TOKEN=your-read-packages-token
+```
 
 For **named volumes version** (docker-compose.yml):
 

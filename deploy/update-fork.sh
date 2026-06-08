@@ -21,6 +21,11 @@ if [ ! -f "${SCRIPT_DIR}/.env" ]; then
   exit 1
 fi
 
+# shellcheck disable=SC1090
+set -a
+. "${SCRIPT_DIR}/.env"
+set +a
+
 echo "[INFO] Repository root: ${REPO_ROOT}"
 echo "[INFO] Deploy dir: ${SCRIPT_DIR}"
 
@@ -34,8 +39,19 @@ git pull origin "${CURRENT_BRANCH}"
 
 cd "${SCRIPT_DIR}"
 
-echo "[INFO] Rebuilding and restarting sub2api stack..."
-docker compose -f "${COMPOSE_FILE}" up -d --build
+TARGET_IMAGE="${SUB2API_IMAGE:-ghcr.io/546957876/sub2api:main}"
+echo "[INFO] Target image: ${TARGET_IMAGE}"
+
+if [[ "${TARGET_IMAGE}" == ghcr.io/* ]] && [ -n "${GHCR_USERNAME:-}" ] && [ -n "${GHCR_TOKEN:-}" ]; then
+  echo "[INFO] Logging into ghcr.io with configured credentials..."
+  printf '%s' "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USERNAME}" --password-stdin
+fi
+
+echo "[INFO] Pulling latest container images..."
+docker compose -f "${COMPOSE_FILE}" pull
+
+echo "[INFO] Restarting sub2api stack without local rebuild..."
+docker compose -f "${COMPOSE_FILE}" up -d --no-build --remove-orphans
 
 echo "[INFO] Current sub2api image:"
 docker inspect sub2api --format '{{.Config.Image}}'

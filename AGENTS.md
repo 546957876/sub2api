@@ -52,6 +52,11 @@ cd ~/sub2api
 ./deploy/update-fork.sh
 ```
 
+说明：
+
+- `update-fork.sh` 采用 `git pull + docker compose pull + docker compose up -d --no-build`
+- 服务器不再负责本地构建 fork 镜像，默认拉取 GitHub Actions 预构建镜像
+
 ### 4. Windows 本地测试版 EXE
 
 本地如需保留旧的 `backend/sub2api.exe`，同时测试新的 Windows 可执行文件，统一使用：

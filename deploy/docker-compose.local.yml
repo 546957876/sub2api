@@ -24,10 +24,7 @@ services:
   # Sub2API Application
   # ===========================================================================
   sub2api:
-    image: sub2api:fork
-    build:
-      context: ..
-      dockerfile: Dockerfile
+    image: ${SUB2API_IMAGE:-ghcr.io/546957876/sub2api:main}
     container_name: sub2api
     restart: unless-stopped
     ulimits:
