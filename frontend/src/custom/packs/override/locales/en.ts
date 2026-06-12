@@ -17,11 +17,17 @@ export default {
         codex: 'Codex',
         gemini: 'Gemini'
       },
+      codexLabels: {
+        standard: 'Standard',
+        priority: 'Priority',
+        textTokens: 'Text tokens',
+        imageTokens: 'Image tokens'
+      },
       multiplierLabel: 'Group Multiplier',
-      multiplierHint: 'Platform price = official USDT price × multiplier. This input is only for display and comparison and does not change system settings.',
+      multiplierHint: 'Platform RMB price = official USD price × 7 × multiplier. This input is only for display and comparison and does not change system settings.',
       rulesTitle: 'Pricing Rules',
-      rulesLine1: 'Official RMB price = official USDT price × 7',
-      rulesLine2: 'Platform RMB price = official USDT price × group multiplier',
+      rulesLine1: 'Official RMB price = official USD price × 7',
+      rulesLine2: 'Platform RMB price = official USD price × 7 × group multiplier',
       activeMultiplier: 'Active Multiplier',
       columns: {
         model: 'Model ID',
@@ -39,7 +45,7 @@ export default {
       },
       categoryDescriptions: {
         claude: 'Displays the official Claude coding-related prices and converts them into platform pricing using the current multiplier.',
-        codex: 'Displays official Codex pricing and helps compare effective cost under different multipliers.',
+        codex: 'Displays official OpenAI API pricing for current Codex-related models and GPT Image 2 token rates, so Codex can be compared on the same cost basis as Claude and Gemini.',
         gemini: 'Displays official Gemini pricing so you can compare everything in RMB under one view.'
       }
     }

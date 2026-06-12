@@ -105,7 +105,7 @@
           <div class="space-y-4 lg:hidden">
             <article
               v-for="row in currentRows"
-              :key="`${currentCategory.key}-mobile-${row.model}`"
+              :key="`${currentCategory.key}-mobile-${row.model}-${row.displayName ?? 'default'}`"
               class="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:border-white/8 dark:bg-[#101826] dark:shadow-none"
             >
               <div class="mb-4">
@@ -190,7 +190,7 @@
             <tbody>
               <tr
                 v-for="row in currentRows"
-                :key="`${currentCategory.key}-${row.model}`"
+                :key="`${currentCategory.key}-${row.model}-${row.displayName ?? 'default'}`"
                 class="border-t border-slate-200 text-sm text-slate-700 dark:border-white/6 dark:text-white/85"
               >
                 <td class="border-t border-slate-200 px-5 py-4 align-top dark:border-white/6">
@@ -293,9 +293,9 @@ interface PricingCategory {
   rows: PricingRow[]
 }
 
-const RMB_PER_USDT = 7
+const RMB_PER_USD = 7
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const activeTab = ref<PricingTabKey>('claude')
 const groupMultiplierInput = ref(1)
@@ -309,19 +309,24 @@ const normalizedMultiplier = computed(() => {
 })
 
 const discountLabel = computed(() => {
-  const discount = normalizedMultiplier.value / RMB_PER_USDT
-  if (!Number.isFinite(discount) || discount <= 0) return '0折'
-  return `${discount.toFixed(1)}折`
+  const multiplier = normalizedMultiplier.value
+  if (!Number.isFinite(multiplier) || multiplier <= 0) {
+    return locale.value.toLowerCase().startsWith('zh') ? '0折' : '0%'
+  }
+  if (locale.value.toLowerCase().startsWith('zh')) {
+    return `${(multiplier * 10).toFixed(1)}折`
+  }
+  return `${(multiplier * 100).toFixed(0)}%`
 })
 
 function multiplyPrice(officialPriceUsd?: number) {
   if (officialPriceUsd == null) return undefined
-  return officialPriceUsd * normalizedMultiplier.value * RMB_PER_USDT
+  return officialPriceUsd * normalizedMultiplier.value * RMB_PER_USD
 }
 
 function toOfficialRmb(officialPriceUsd?: number) {
   if (officialPriceUsd == null) return undefined
-  return officialPriceUsd * RMB_PER_USDT
+  return officialPriceUsd * RMB_PER_USD
 }
 
 function formatRmb(price?: number) {
@@ -371,14 +376,44 @@ const categories = computed<PricingCategory[]>(() => [
     icon: 'terminal',
     rows: [
       {
-        model: 'gpt-5.3-codex',
-        displayName: 'Standard',
-        official: { input: 1.75, output: 14, cacheRead: 0.175 }
+        model: 'gpt-5.5',
+        displayName: t('custom.pricingPage.codexLabels.standard'),
+        official: { input: 5, output: 30, cacheRead: 0.5 }
       },
       {
-        model: 'gpt-5.3-codex-priority',
-        displayName: 'Priority',
-        official: { input: 3.5, output: 28, cacheRead: 0.35 }
+        model: 'gpt-5.5',
+        displayName: t('custom.pricingPage.codexLabels.priority'),
+        official: { input: 12.5, output: 75, cacheRead: 1.25 }
+      },
+      {
+        model: 'gpt-5.4',
+        displayName: t('custom.pricingPage.codexLabels.standard'),
+        official: { input: 2.5, output: 15, cacheRead: 0.25 }
+      },
+      {
+        model: 'gpt-5.4',
+        displayName: t('custom.pricingPage.codexLabels.priority'),
+        official: { input: 5, output: 30, cacheRead: 0.5 }
+      },
+      {
+        model: 'gpt-5.4-mini',
+        displayName: t('custom.pricingPage.codexLabels.standard'),
+        official: { input: 0.75, output: 4.5, cacheRead: 0.075 }
+      },
+      {
+        model: 'gpt-5.4-mini',
+        displayName: t('custom.pricingPage.codexLabels.priority'),
+        official: { input: 1.5, output: 9, cacheRead: 0.15 }
+      },
+      {
+        model: 'gpt-image-2',
+        displayName: t('custom.pricingPage.codexLabels.textTokens'),
+        official: { input: 5, output: 10, cacheRead: 1.25 }
+      },
+      {
+        model: 'gpt-image-2',
+        displayName: t('custom.pricingPage.codexLabels.imageTokens'),
+        official: { input: 8, output: 30, cacheRead: 2 }
       }
     ]
   },

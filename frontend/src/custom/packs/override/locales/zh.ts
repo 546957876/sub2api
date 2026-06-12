@@ -17,11 +17,17 @@ export default {
         codex: 'Codex',
         gemini: 'Gemini'
       },
+      codexLabels: {
+        standard: '标准',
+        priority: 'Priority',
+        textTokens: 'Text tokens',
+        imageTokens: 'Image tokens'
+      },
       multiplierLabel: '分组倍率',
-      multiplierHint: '平台价格 = 官方 USDT 价格 × 倍率。这里的倍率仅用于展示与对比，不会写入系统设置。',
+      multiplierHint: '平台价格（人民币） = 官方美元价格 × 7 × 倍率。这里的倍率仅用于展示与对比，不会写入系统设置。',
       rulesTitle: '计价规则',
-      rulesLine1: '官方价格（人民币） = 官方 USDT 价格 × 7',
-      rulesLine2: '平台价格（人民币） = 官方 USDT 价格 × 分组倍率',
+      rulesLine1: '官方价格（人民币） = 官方 USD 价格 × 7',
+      rulesLine2: '平台价格（人民币） = 官方 USD 价格 × 7 × 分组倍率',
       activeMultiplier: '当前倍率',
       columns: {
         model: '模型 ID',
@@ -39,7 +45,7 @@ export default {
       },
       categoryDescriptions: {
         claude: '展示 Claude 编程相关模型的官方价格，并按当前倍率实时换算平台价格。',
-        codex: '展示 Codex 系列模型的官方价格，适合用于对比不同倍率下的实际消耗。',
+        codex: '展示当前 Codex 相关模型与 GPT Image 2 的官方 OpenAI API 定价，便于和 Claude、Gemini 按同一成本口径比较。',
         gemini: '展示 Gemini 系列模型的官方价格，便于统一按人民币口径比较。'
       }
     }
