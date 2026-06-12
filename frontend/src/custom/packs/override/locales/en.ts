@@ -20,15 +20,18 @@ export default {
       codexLabels: {
         standard: 'Standard'
       },
+      exchangeRateLabel: 'RMB:USDT Rate',
+      exchangeRateHint: 'Used to convert the official USDT cost into an official RMB display price. Defaults to 1 USDT = 7 RMB and can be adjusted here when needed.',
       multiplierLabel: 'Group Multiplier',
-      multiplierHint: 'Platform RMB price = official USD price × 7 × multiplier. This input is only for display and comparison and does not change system settings.',
+      multiplierHint: 'The multiplier only affects how much USDT balance we deduct. It does not directly equal the discount shown against the official RMB price.',
       rulesTitle: 'Pricing Rules',
-      rulesLine1: 'Official RMB price = official USD price × 7',
-      rulesLine2: 'Platform RMB price = official USD price × 7 × group multiplier',
+      rulesLine1: 'Official RMB price = official USDT price × {rate}',
+      rulesLine2: 'Platform RMB price = platform USDT charge ÷ recharge rate (currently 1 RMB = {rate} USDT balance)',
+      rulesLine3: 'Discount = our price ÷ official price. The multiplier only determines the USDT balance deduction and should not be treated as the discount directly.',
       activeMultiplier: 'Active Multiplier',
       imageTableTitle: 'GPT Image 2 Generation Pricing',
-      imageTableDescription: 'A separate per-image table for 1K, 2K, and 4K outputs, showing both the official cost and our price for one generated image.',
       perImageUnit: 'image',
+      officialPricePrefix: 'Official price',
       columns: {
         model: 'Model ID',
         inputPrice: 'Input Price',
@@ -37,9 +40,9 @@ export default {
         cacheReadPrice: 'Cache Read',
         multiplier: 'Multiplier',
         discount: 'Equivalent Discount',
+        savings: 'Savings',
         imageModel: 'Image Model ID',
         imageSize: 'Image Size',
-        officialPrice: 'Official Price',
         ourPrice: 'Our Price'
       },
       categoryTitles: {
@@ -49,7 +52,7 @@ export default {
       },
       categoryDescriptions: {
         claude: 'Displays the official Claude coding-related prices and converts them into platform pricing using the current multiplier.',
-        codex: 'Displays official OpenAI API pricing for current Codex-related models and GPT Image 2 token rates, so Codex can be compared on the same cost basis as Claude and Gemini.',
+        codex: 'Displays current Codex-related model pricing and a separate fixed per-image price table for GPT Image 2, so Codex can be compared on the same cost basis as Claude and Gemini.',
         gemini: 'Displays official Gemini pricing so you can compare everything in RMB under one view.'
       }
     }
