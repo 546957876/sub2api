@@ -18,10 +18,7 @@ export default {
         gemini: 'Gemini'
       },
       codexLabels: {
-        standard: '标准',
-        priority: 'Priority',
-        textTokens: 'Text tokens',
-        imageTokens: 'Image tokens'
+        standard: '标准'
       },
       multiplierLabel: '分组倍率',
       multiplierHint: '平台价格（人民币） = 官方美元价格 × 7 × 倍率。这里的倍率仅用于展示与对比，不会写入系统设置。',
@@ -29,6 +26,9 @@ export default {
       rulesLine1: '官方价格（人民币） = 官方 USD 价格 × 7',
       rulesLine2: '平台价格（人民币） = 官方 USD 价格 × 7 × 分组倍率',
       activeMultiplier: '当前倍率',
+      imageTableTitle: 'GPT Image 2 生图价格',
+      imageTableDescription: '单独按单张图片展示 1K、2K、4K 三档价格，方便直接对照官方成本与我们自己的售价。',
+      perImageUnit: '张',
       columns: {
         model: '模型 ID',
         inputPrice: '输入价格',
@@ -36,7 +36,11 @@ export default {
         cacheWritePrice: '缓存创建',
         cacheReadPrice: '缓存读取',
         multiplier: '倍率',
-        discount: '相当于官方'
+        discount: '相当于官方',
+        imageModel: '图片模型 ID',
+        imageSize: '图片大小',
+        officialPrice: '官方价格',
+        ourPrice: '我们价格'
       },
       categoryTitles: {
         claude: 'Claude Code 价格列表',

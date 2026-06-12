@@ -18,10 +18,7 @@ export default {
         gemini: 'Gemini'
       },
       codexLabels: {
-        standard: 'Standard',
-        priority: 'Priority',
-        textTokens: 'Text tokens',
-        imageTokens: 'Image tokens'
+        standard: 'Standard'
       },
       multiplierLabel: 'Group Multiplier',
       multiplierHint: 'Platform RMB price = official USD price × 7 × multiplier. This input is only for display and comparison and does not change system settings.',
@@ -29,6 +26,9 @@ export default {
       rulesLine1: 'Official RMB price = official USD price × 7',
       rulesLine2: 'Platform RMB price = official USD price × 7 × group multiplier',
       activeMultiplier: 'Active Multiplier',
+      imageTableTitle: 'GPT Image 2 Generation Pricing',
+      imageTableDescription: 'A separate per-image table for 1K, 2K, and 4K outputs, showing both the official cost and our price for one generated image.',
+      perImageUnit: 'image',
       columns: {
         model: 'Model ID',
         inputPrice: 'Input Price',
@@ -36,7 +36,11 @@ export default {
         cacheWritePrice: 'Cache Write',
         cacheReadPrice: 'Cache Read',
         multiplier: 'Multiplier',
-        discount: 'Equivalent Discount'
+        discount: 'Equivalent Discount',
+        imageModel: 'Image Model ID',
+        imageSize: 'Image Size',
+        officialPrice: 'Official Price',
+        ourPrice: 'Our Price'
       },
       categoryTitles: {
         claude: 'Claude Code Pricing',

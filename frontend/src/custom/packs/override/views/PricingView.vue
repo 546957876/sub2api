@@ -261,6 +261,83 @@
             </tbody>
             </table>
           </div>
+
+          <div v-if="currentImageRows.length" class="mt-8 border-t border-slate-200 pt-6 dark:border-white/8">
+            <div class="mb-4">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
+                {{ t('custom.pricingPage.imageTableTitle') }}
+              </h3>
+              <p class="mt-1 text-sm text-slate-500 dark:text-white/55">
+                {{ t('custom.pricingPage.imageTableDescription') }}
+              </p>
+            </div>
+
+            <div class="space-y-4 lg:hidden">
+              <article
+                v-for="row in currentImageRows"
+                :key="`image-mobile-${row.model}-${row.size}`"
+                class="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_32px_rgba(15,23,42,0.06)] dark:border-white/8 dark:bg-[#101826] dark:shadow-none"
+              >
+                <div class="mb-4">
+                  <p class="text-base font-semibold text-slate-900 dark:text-white">{{ row.model }}</p>
+                  <p class="mt-1 text-xs text-slate-400 dark:text-white/45">{{ row.size }}</p>
+                </div>
+
+                <div class="grid gap-3">
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.officialPrice') }}</p>
+                    <div class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">
+                      {{ formatPerImagePrice(toOfficialRmb(row.officialPriceUsd)) }}
+                    </div>
+                  </div>
+
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 dark:border-white/8 dark:bg-white/[0.035]">
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400 dark:text-white/35">{{ t('custom.pricingPage.columns.ourPrice') }}</p>
+                    <div class="mt-2 text-sm font-semibold text-cyan-700 dark:text-amber-300">
+                      {{ formatPerImagePrice(multiplyPrice(row.officialPriceUsd)) }}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="hidden overflow-x-auto lg:block">
+              <table class="min-w-[860px] border-separate border-spacing-0 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/8 dark:bg-[#101826]">
+                <thead>
+                  <tr class="bg-slate-50 text-left text-sm text-slate-500 dark:bg-[#1a2435] dark:text-white/70">
+                    <th class="w-[280px] px-5 py-4 font-medium">{{ t('custom.pricingPage.columns.imageModel') }}</th>
+                    <th class="w-[180px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.imageSize') }}</th>
+                    <th class="w-[200px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.officialPrice') }}</th>
+                    <th class="w-[200px] px-4 py-4 font-medium">{{ t('custom.pricingPage.columns.ourPrice') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="row in currentImageRows"
+                    :key="`image-${row.model}-${row.size}`"
+                    class="border-t border-slate-200 text-sm text-slate-700 dark:border-white/6 dark:text-white/85"
+                  >
+                    <td class="border-t border-slate-200 px-5 py-4 align-top font-semibold text-slate-900 dark:border-white/6 dark:text-white">
+                      {{ row.model }}
+                    </td>
+                    <td class="border-t border-slate-200 px-4 py-4 align-top dark:border-white/6">
+                      {{ row.size }}
+                    </td>
+                    <td class="border-t border-slate-200 px-4 py-4 align-top dark:border-white/6">
+                      <span class="font-semibold text-slate-900 dark:text-white">
+                        {{ formatPerImagePrice(toOfficialRmb(row.officialPriceUsd)) }}
+                      </span>
+                    </td>
+                    <td class="border-t border-slate-200 px-4 py-4 align-top dark:border-white/6">
+                      <span class="font-semibold text-cyan-700 dark:text-amber-300">
+                        {{ formatPerImagePrice(multiplyPrice(row.officialPriceUsd)) }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -285,12 +362,19 @@ interface PricingRow {
   }
 }
 
+interface ImagePricingRow {
+  model: string
+  size: '1K' | '2K' | '4K'
+  officialPriceUsd: number
+}
+
 interface PricingCategory {
   key: PricingTabKey
   title: string
   description: string
   icon: string
   rows: PricingRow[]
+  imageRows?: ImagePricingRow[]
 }
 
 const RMB_PER_USD = 7
@@ -332,6 +416,11 @@ function toOfficialRmb(officialPriceUsd?: number) {
 function formatRmb(price?: number) {
   if (price == null || !Number.isFinite(price)) return '--'
   return `¥${price.toFixed(price >= 1 ? 2 : 2)}`
+}
+
+function formatPerImagePrice(price?: number) {
+  if (price == null || !Number.isFinite(price)) return '--'
+  return `${formatRmb(price)}/${t('custom.pricingPage.perImageUnit')}`
 }
 
 const tabs = computed((): Array<{ key: PricingTabKey; label: string; icon: 'brain' | 'terminal' | 'sparkles' }> => [
@@ -381,40 +470,20 @@ const categories = computed<PricingCategory[]>(() => [
         official: { input: 5, output: 30, cacheRead: 0.5 }
       },
       {
-        model: 'gpt-5.5',
-        displayName: t('custom.pricingPage.codexLabels.priority'),
-        official: { input: 12.5, output: 75, cacheRead: 1.25 }
-      },
-      {
         model: 'gpt-5.4',
         displayName: t('custom.pricingPage.codexLabels.standard'),
         official: { input: 2.5, output: 15, cacheRead: 0.25 }
       },
       {
-        model: 'gpt-5.4',
-        displayName: t('custom.pricingPage.codexLabels.priority'),
-        official: { input: 5, output: 30, cacheRead: 0.5 }
-      },
-      {
         model: 'gpt-5.4-mini',
         displayName: t('custom.pricingPage.codexLabels.standard'),
         official: { input: 0.75, output: 4.5, cacheRead: 0.075 }
-      },
-      {
-        model: 'gpt-5.4-mini',
-        displayName: t('custom.pricingPage.codexLabels.priority'),
-        official: { input: 1.5, output: 9, cacheRead: 0.15 }
-      },
-      {
-        model: 'gpt-image-2',
-        displayName: t('custom.pricingPage.codexLabels.textTokens'),
-        official: { input: 5, output: 10, cacheRead: 1.25 }
-      },
-      {
-        model: 'gpt-image-2',
-        displayName: t('custom.pricingPage.codexLabels.imageTokens'),
-        official: { input: 8, output: 30, cacheRead: 2 }
       }
+    ],
+    imageRows: [
+      { model: 'gpt-image-2', size: '1K', officialPriceUsd: 0.00588 },
+      { model: 'gpt-image-2', size: '2K', officialPriceUsd: 0.01191 },
+      { model: 'gpt-image-2', size: '4K', officialPriceUsd: 0.01113 }
     ]
   },
   {
@@ -444,6 +513,7 @@ const categories = computed<PricingCategory[]>(() => [
 
 const currentCategory = computed(() => categories.value.find((item) => item.key === activeTab.value) ?? categories.value[0])
 const currentRows = computed(() => currentCategory.value.rows)
+const currentImageRows = computed(() => currentCategory.value.imageRows ?? [])
 
 const showInputColumn = computed(() => currentRows.value.some((row) => row.official.input != null))
 const showOutputColumn = computed(() => currentRows.value.some((row) => row.official.output != null))

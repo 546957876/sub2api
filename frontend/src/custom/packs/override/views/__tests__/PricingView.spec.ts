@@ -29,9 +29,13 @@ const translations: Record<string, string> = {
   'custom.pricingPage.categoryTitles.gemini': 'Gemini 价格列表',
   'custom.pricingPage.categoryDescriptions.gemini': 'gemini desc',
   'custom.pricingPage.codexLabels.standard': '标准',
-  'custom.pricingPage.codexLabels.priority': 'Priority',
-  'custom.pricingPage.codexLabels.textTokens': 'Text tokens',
-  'custom.pricingPage.codexLabels.imageTokens': 'Image tokens',
+  'custom.pricingPage.imageTableTitle': 'GPT Image 2 生图价格',
+  'custom.pricingPage.imageTableDescription': 'image desc',
+  'custom.pricingPage.perImageUnit': '张',
+  'custom.pricingPage.columns.imageModel': '图片模型 ID',
+  'custom.pricingPage.columns.imageSize': '图片大小',
+  'custom.pricingPage.columns.officialPrice': '官方价格',
+  'custom.pricingPage.columns.ourPrice': '我们价格',
 }
 
 vi.mock('vue-i18n', async () => {
@@ -46,7 +50,7 @@ vi.mock('vue-i18n', async () => {
 })
 
 describe('PricingView', () => {
-  it('shows current Codex models instead of deprecated gpt-5.2 / gpt-5.3-codex entries', async () => {
+  it('shows standard Codex text pricing plus a separate gpt-image-2 image table', async () => {
     const wrapper = mount(PricingView, {
       global: {
         stubs: {
@@ -64,8 +68,13 @@ describe('PricingView', () => {
     expect(text).toContain('gpt-5.4')
     expect(text).toContain('gpt-5.4-mini')
     expect(text).toContain('gpt-image-2')
+    expect(text).toContain('GPT Image 2 生图价格')
+    expect(text).toContain('1K')
+    expect(text).toContain('2K')
+    expect(text).toContain('4K')
     expect(text).not.toContain('gpt-5.3-codex')
     expect(text).not.toContain('gpt-5.2')
+    expect(text).not.toContain('Priority')
     expect(text).toContain('10.0折')
   })
 })
