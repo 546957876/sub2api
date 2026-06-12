@@ -241,8 +241,10 @@
                       {{ activeDiscountLabel }}
                     </span>
                   </td>
-                  <td class="border-t border-slate-200 px-4 py-4 align-top text-slate-600 dark:border-white/6 dark:text-white/72">
-                    {{ activeSavingsLabel }}
+                  <td class="border-t border-slate-200 px-4 py-4 align-top dark:border-white/6">
+                    <span class="inline-flex rounded-full border border-red-800 bg-red-950 px-3 py-1 text-xs font-bold text-red-100 shadow-[0_0_0_1px_rgba(127,29,29,0.18)] dark:border-red-700 dark:bg-red-900 dark:text-red-50">
+                      {{ activeSavingsLabel }}
+                    </span>
                   </td>
                 </tr>
               </tbody>

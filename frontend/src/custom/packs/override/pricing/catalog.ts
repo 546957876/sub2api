@@ -43,6 +43,18 @@ const catalog: PricingCategoryCatalog[] = [
     key: 'claude',
     rows: [
       {
+        model: 'claude-fable-5',
+        displayName: 'Claude Fable 5',
+        platform: 'anthropic',
+        official: { input: 10, output: 50, cacheWrite: 12.5, cacheRead: 1 },
+      },
+      {
+        model: 'claude-opus-4-8',
+        displayName: 'Claude Opus 4.8',
+        platform: 'anthropic',
+        official: { input: 5, output: 25, cacheWrite: 6.25, cacheRead: 0.5 },
+      },
+      {
         model: 'claude-opus-4-7',
         displayName: 'Claude Opus 4.7',
         platform: 'anthropic',

@@ -57,6 +57,24 @@ vi.mock('vue-i18n', async () => {
 })
 
 describe('PricingView', () => {
+  it('shows the latest Claude models including fable 5 and opus 4.8 by default', () => {
+    const wrapper = mount(PricingView, {
+      global: {
+        stubs: {
+          Icon: {
+            template: '<span class="icon-stub" />',
+          },
+        },
+      },
+    })
+
+    const text = wrapper.text()
+    expect(text).toContain('claude-fable-5')
+    expect(text).toContain('Claude Fable 5')
+    expect(text).toContain('claude-opus-4-8')
+    expect(text).toContain('Claude Opus 4.8')
+  })
+
   it('shows standard Codex text pricing plus a fixed gpt-image-2 image table', async () => {
     const wrapper = mount(PricingView, {
       global: {
