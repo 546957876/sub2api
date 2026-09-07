@@ -17,7 +17,7 @@ function isLocaleMessages(value: unknown): value is LocaleMessages {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function mergeLocaleMessages(base: LocaleMessages, extension: LocaleMessages | null): LocaleMessages {
+export function mergeLocaleMessages(base: LocaleMessages, extension: LocaleMessages | null): LocaleMessages {
   if (!extension) {
     return base
   }

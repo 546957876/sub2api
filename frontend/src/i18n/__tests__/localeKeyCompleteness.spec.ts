@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import en from '../locales/en'
-import zh from '../locales/zh'
+import { getCustomLocaleMessages } from '@/custom/active'
+import { mergeLocaleMessages } from '../index'
+import enBase from '../locales/en'
+import zhBase from '../locales/zh'
 
 type LocaleValue = Record<string, unknown>
 
@@ -61,6 +63,8 @@ function missingKeys(usedKeys: string[], availableKeys: Set<string>): string[] {
 }
 
 describe('locale key completeness', () => {
+  const en = mergeLocaleMessages(enBase, getCustomLocaleMessages('en'))
+  const zh = mergeLocaleMessages(zhBase, getCustomLocaleMessages('zh'))
   const enKeys = new Set(flattenLeafKeys(en))
   const zhKeys = new Set(flattenLeafKeys(zh))
   const usedKeys = [...new Set(sourceKeys())].sort()
