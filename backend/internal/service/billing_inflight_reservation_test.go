@@ -450,17 +450,21 @@ func TestInflightEstimate_AccountMappingNoDBAndBoundedMemory(t *testing.T) {
 	require.Zero(t, snap.reads.Load(), "priced models must never trigger account-mapping lookup")
 
 	var before, after runtime.MemStats
+	const n = 20000
+	lookupUnknownModels := func(offset int) {
+		for i := 0; i < n; i++ {
+			_, priced := svc.EstimateInflightReservation(ctx, apiKey, InflightEstimateRequest{Model: fmt.Sprintf("rand-%d-%d", offset+i, time.Now().UnixNano()), BodyBytes: 4000, MaxTokens: 1000})
+			require.False(t, priced)
+		}
+	}
+	lookupUnknownModels(0) // Warm runtime allocations before measuring retained cache growth.
 	runtime.GC()
 	runtime.ReadMemStats(&before)
-	const n = 20000
-	for i := 0; i < n; i++ {
-		_, priced := svc.EstimateInflightReservation(ctx, apiKey, InflightEstimateRequest{Model: fmt.Sprintf("rand-%d-%d", i, time.Now().UnixNano()), BodyBytes: 4000, MaxTokens: 1000})
-		require.False(t, priced)
-	}
+	lookupUnknownModels(n)
 	runtime.GC()
 	runtime.ReadMemStats(&after)
 	require.Zero(t, repo.dbCalls.Load(), "no direct DB query on the request path")
-	require.Equal(t, int64(n), snap.reads.Load(), "unpriced lookups read the scheduler snapshot only")
+	require.Equal(t, int64(2*n), snap.reads.Load(), "unpriced lookups read the scheduler snapshot only")
 	require.Less(t, int64(after.HeapAlloc)-int64(before.HeapAlloc), int64(8<<20), "no per-model cache growth")
 }
 
