@@ -5,7 +5,8 @@ import UserTokenRanking from '../UserTokenRanking.vue'
 
 const getUserBreakdown = vi.fn()
 
-vi.mock('@/api/admin/dashboard', () => ({
+vi.mock('@/api/admin/dashboard', async (importOriginal) => ({
+  ...await importOriginal<typeof import('@/api/admin/dashboard')>(),
   getUserBreakdown: (...args: unknown[]) => getUserBreakdown(...args),
 }))
 

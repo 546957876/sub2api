@@ -5,7 +5,8 @@ import OpsOpenAITokenStatsCard from '../OpsOpenAITokenStatsCard.vue'
 
 const mockGetOpenAITokenStats = vi.fn()
 
-vi.mock('@/api/admin/ops', () => ({
+vi.mock('@/api/admin/ops', async (importOriginal) => ({
+  ...await importOriginal<typeof import('@/api/admin/ops')>(),
   opsAPI: {
     getOpenAITokenStats: (...args: any[]) => mockGetOpenAITokenStats(...args),
   },
